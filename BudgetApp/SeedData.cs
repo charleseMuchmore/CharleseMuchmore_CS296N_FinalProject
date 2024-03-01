@@ -43,6 +43,7 @@ namespace BudgetApp
                 var result = userManager.CreateAsync(user2, SECRET_PASSWORD).Result.Succeeded;
                 if (result)
                 {
+                    //Budget
                     Budget budget = new()
                     {
                         AppUser = user2,
@@ -53,6 +54,7 @@ namespace BudgetApp
                     };
                     context.Budgets.Add(budget);
 
+                    //Categories
                     BudgetCategory bcat1 = new()
                     {
                         BudgetId = budget.BudgetId,
@@ -61,7 +63,6 @@ namespace BudgetApp
                         Planned = 25,
                         Spent = 20
                     };
-                    context.BudgetCategories.Add(bcat1);
 
                     BudgetCategory bcat2 = new()
                     {
@@ -71,7 +72,25 @@ namespace BudgetApp
                         Planned = 200,
                         Spent = 200
                     };
+                    context.BudgetCategories.Add(bcat1);
                     context.BudgetCategories.Add(bcat2);
+
+                    //Incomes
+                    Income income1 = new()
+                    {
+                        BudgetId = budget.BudgetId,
+                        Budget = budget,
+                        IncomeAmount = 1000
+                    };
+                    context.Incomes.Add(income1);
+
+                    Income income2 = new()
+                    {
+                        BudgetId = budget.BudgetId,
+                        Budget = budget,
+                        IncomeAmount = 2400
+                    };
+                    context.Incomes.Add(income2);
                 }
                 context.SaveChanges();
 
@@ -80,6 +99,7 @@ namespace BudgetApp
                 result &= userManager.CreateAsync(user3, SECRET_PASSWORD).Result.Succeeded;
                 if (result)
                 {
+                    //Budget
                     Budget budget = new()
                     {
                         AppUser = user3,
@@ -90,6 +110,7 @@ namespace BudgetApp
                     };
                     context.Budgets.Add(budget);
 
+                    //Categories
                     BudgetCategory bcat1 = new()
                     {
                         BudgetId = budget.BudgetId,
@@ -98,7 +119,6 @@ namespace BudgetApp
                         Planned = 2000,
                         Spent = 2000
                     };
-                    context.BudgetCategories.Add(bcat1);
 
                     BudgetCategory bcat2 = new()
                     {
@@ -108,7 +128,17 @@ namespace BudgetApp
                         Planned = 500,
                         Spent = 450
                     };
+                    context.BudgetCategories.Add(bcat1);
                     context.BudgetCategories.Add(bcat2);
+
+                    //Incomes
+                    Income income1 = new()
+                    {
+                        BudgetId = budget.BudgetId,
+                        Budget = budget,
+                        IncomeAmount = 3000
+                    };
+                    context.Incomes.Add(income1);
                 }
                 context.SaveChanges();
 
@@ -117,6 +147,7 @@ namespace BudgetApp
                 result &= userManager.CreateAsync(user4, SECRET_PASSWORD).Result.Succeeded;
                 if (result)
                 {
+                    //Budget
                     Budget budget = new()
                     {
                         AppUser = user4,
@@ -127,6 +158,7 @@ namespace BudgetApp
                     };
                     context.Budgets.Add(budget);
 
+                    //Categories
                     BudgetCategory bcat1 = new()
                     {
                         BudgetId = budget.BudgetId,
@@ -135,7 +167,6 @@ namespace BudgetApp
                         Planned = 700,
                         Spent = 840
                     };
-                    context.BudgetCategories.Add(bcat1);
 
                     BudgetCategory bcat2 = new()
                     {
@@ -145,7 +176,25 @@ namespace BudgetApp
                         Planned = 400,
                         Spent = 400
                     };
+                    context.BudgetCategories.Add(bcat1);
                     context.BudgetCategories.Add(bcat2);
+
+                    //Incomes
+                    Income income1 = new()
+                    {
+                        BudgetId = budget.BudgetId,
+                        Budget = budget,
+                        IncomeAmount = 500
+                    };
+
+                    Income income2 = new()
+                    {
+                        BudgetId = budget.BudgetId,
+                        Budget = budget,
+                        IncomeAmount = 850
+                    };
+                    context.Incomes.Add(income1);
+                    context.Incomes.Add(income2);
                 }
                 context.SaveChanges();
 
@@ -154,6 +203,7 @@ namespace BudgetApp
                 result &= userManager.CreateAsync(user5, SECRET_PASSWORD).Result.Succeeded;
                 if (result)
                 {
+                    //Budget
                     Budget budget = new()
                     {
                         AppUser = user5,
@@ -164,6 +214,7 @@ namespace BudgetApp
                     };
                     context.Budgets.Add(budget);
 
+                    //Categories
                     BudgetCategory bcat1 = new()
                     {
                         BudgetId = budget.BudgetId,
@@ -172,7 +223,6 @@ namespace BudgetApp
                         Planned = 50,
                         Spent = 50
                     };
-                    context.BudgetCategories.Add(bcat1);
 
                     BudgetCategory bcat2 = new()
                     {
@@ -182,8 +232,17 @@ namespace BudgetApp
                         Planned = 400,
                         Spent = 400
                     };
+                    context.BudgetCategories.Add(bcat1);
                     context.BudgetCategories.Add(bcat2);
 
+                    //Incomes
+                    Income income1 = new()
+                    {
+                        BudgetId = budget.BudgetId,
+                        Budget = budget,
+                        IncomeAmount = 2500
+                    };
+                    context.Incomes.Add(income1);
                 }
 
                 //Charlese - dev

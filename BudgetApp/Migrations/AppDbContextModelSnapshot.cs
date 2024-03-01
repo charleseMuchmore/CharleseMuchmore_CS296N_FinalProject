@@ -83,10 +83,18 @@ namespace BudgetApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int?>("BudgetId")
+                    b.Property<int>("BudgetCategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BudgetId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ExpenseAmount")
                         .HasColumnType("int");
 
                     b.HasKey("ExpenseId");
+
+                    b.HasIndex("BudgetCategoryId");
 
                     b.HasIndex("BudgetId");
 
@@ -99,7 +107,10 @@ namespace BudgetApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int?>("BudgetId")
+                    b.Property<int>("BudgetId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IncomeAmount")
                         .HasColumnType("int");
 
                     b.HasKey("IncomeId");
@@ -347,16 +358,32 @@ namespace BudgetApp.Migrations
 
             modelBuilder.Entity("BudgetApp.Models.Expense", b =>
                 {
-                    b.HasOne("BudgetApp.Models.Budget", null)
+                    b.HasOne("BudgetApp.Models.BudgetCategory", "BudgetCategory")
+                        .WithMany("Expenses")
+                        .HasForeignKey("BudgetCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BudgetApp.Models.Budget", "Budget")
                         .WithMany("BudgetExpenses")
-                        .HasForeignKey("BudgetId");
+                        .HasForeignKey("BudgetId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Budget");
+
+                    b.Navigation("BudgetCategory");
                 });
 
             modelBuilder.Entity("BudgetApp.Models.Income", b =>
                 {
-                    b.HasOne("BudgetApp.Models.Budget", null)
+                    b.HasOne("BudgetApp.Models.Budget", "Budget")
                         .WithMany("BudgetIncomes")
-                        .HasForeignKey("BudgetId");
+                        .HasForeignKey("BudgetId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Budget");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -417,6 +444,11 @@ namespace BudgetApp.Migrations
                     b.Navigation("BudgetExpenses");
 
                     b.Navigation("BudgetIncomes");
+                });
+
+            modelBuilder.Entity("BudgetApp.Models.BudgetCategory", b =>
+                {
+                    b.Navigation("Expenses");
                 });
 #pragma warning restore 612, 618
         }
