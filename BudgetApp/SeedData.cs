@@ -91,6 +91,27 @@ namespace BudgetApp
                         IncomeAmount = 2400
                     };
                     context.Incomes.Add(income2);
+
+                    //Expenses
+                    Expense expense1 = new()
+                    {
+                        BudgetId = budget.BudgetId,
+                        Budget = budget,
+                        BudgetCategoryId = bcat1.BudgetCategoryId,
+                        BudgetCategory = bcat1, 
+                        ExpenseAmount = 1000
+                    };
+
+                    Expense expense2 = new()
+                    {
+                        BudgetId = budget.BudgetId,
+                        Budget = budget,
+                        BudgetCategoryId = bcat2.BudgetCategoryId,
+                        BudgetCategory = bcat2,
+                        ExpenseAmount = 1500
+                    };
+                    context.Expenses.Add(expense1);
+                    context.Expenses.Add(expense2);
                 }
                 context.SaveChanges();
 
@@ -139,6 +160,36 @@ namespace BudgetApp
                         IncomeAmount = 3000
                     };
                     context.Incomes.Add(income1);
+
+                    //Expenses
+                    Expense expense1 = new()
+                    {
+                        BudgetId = budget.BudgetId,
+                        Budget = budget,
+                        BudgetCategoryId = bcat1.BudgetCategoryId,
+                        BudgetCategory = bcat1,
+                        ExpenseAmount = 450
+                    };
+                    Expense expense3 = new()
+                    {
+                        BudgetId = budget.BudgetId,
+                        Budget = budget,
+                        BudgetCategoryId = bcat1.BudgetCategoryId,
+                        BudgetCategory = bcat1,
+                        ExpenseAmount = 320
+                    };
+
+                    Expense expense2 = new()
+                    {
+                        BudgetId = budget.BudgetId,
+                        Budget = budget,
+                        BudgetCategoryId = bcat2.BudgetCategoryId,
+                        BudgetCategory = bcat2,
+                        ExpenseAmount = 1500
+                    };
+                    context.Expenses.Add(expense1);
+                    context.Expenses.Add(expense2);
+                    context.Expenses.Add(expense3);
                 }
                 context.SaveChanges();
 
@@ -195,6 +246,36 @@ namespace BudgetApp
                     };
                     context.Incomes.Add(income1);
                     context.Incomes.Add(income2);
+
+                    //Expenses
+                    Expense expense1 = new()
+                    {
+                        BudgetId = budget.BudgetId,
+                        Budget = budget,
+                        BudgetCategoryId = bcat1.BudgetCategoryId,
+                        BudgetCategory = bcat1,
+                        ExpenseAmount = 450
+                    };
+                    Expense expense3 = new()
+                    {
+                        BudgetId = budget.BudgetId,
+                        Budget = budget,
+                        BudgetCategoryId = bcat1.BudgetCategoryId,
+                        BudgetCategory = bcat1,
+                        ExpenseAmount = 320
+                    };
+
+                    Expense expense2 = new()
+                    {
+                        BudgetId = budget.BudgetId,
+                        Budget = budget,
+                        BudgetCategoryId = bcat2.BudgetCategoryId,
+                        BudgetCategory = bcat2,
+                        ExpenseAmount = 1500
+                    };
+                    context.Expenses.Add(expense1);
+                    context.Expenses.Add(expense2);
+                    context.Expenses.Add(expense3);
                 }
                 context.SaveChanges();
 
@@ -243,6 +324,36 @@ namespace BudgetApp
                         IncomeAmount = 2500
                     };
                     context.Incomes.Add(income1);
+
+                    //Expenses
+                    Expense expense1 = new()
+                    {
+                        BudgetId = budget.BudgetId,
+                        Budget = budget,
+                        BudgetCategoryId = bcat1.BudgetCategoryId,
+                        BudgetCategory = bcat1,
+                        ExpenseAmount = 450
+                    };
+                    Expense expense3 = new()
+                    {
+                        BudgetId = budget.BudgetId,
+                        Budget = budget,
+                        BudgetCategoryId = bcat1.BudgetCategoryId,
+                        BudgetCategory = bcat1,
+                        ExpenseAmount = 320
+                    };
+
+                    Expense expense2 = new()
+                    {
+                        BudgetId = budget.BudgetId,
+                        Budget = budget,
+                        BudgetCategoryId = bcat2.BudgetCategoryId,
+                        BudgetCategory = bcat2,
+                        ExpenseAmount = 1500
+                    };
+                    context.Expenses.Add(expense1);
+                    context.Expenses.Add(expense2);
+                    context.Expenses.Add(expense3);
                 }
 
                 //Charlese - dev
