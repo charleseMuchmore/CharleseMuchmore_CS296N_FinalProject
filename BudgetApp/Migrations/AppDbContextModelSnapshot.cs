@@ -36,18 +36,43 @@ namespace BudgetApp.Migrations
                     b.ToTable("Budgets");
                 });
 
+            modelBuilder.Entity("BudgetApp.Models.BudgetCategory", b =>
+                {
+                    b.Property<int>("BudgetCategoryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("BudgetId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Planned")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Spent")
+                        .HasColumnType("int");
+
+                    b.HasKey("BudgetCategoryId");
+
+                    b.HasIndex("BudgetId");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("BudgetCategories");
+                });
+
             modelBuilder.Entity("BudgetApp.Models.Category", b =>
                 {
                     b.Property<int>("CategoryId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int?>("BudgetId")
-                        .HasColumnType("int");
+                    b.Property<string>("CategoryName")
+                        .HasColumnType("longtext");
 
                     b.HasKey("CategoryId");
-
-                    b.HasIndex("BudgetId");
 
                     b.ToTable("Categories");
                 });
@@ -303,24 +328,34 @@ namespace BudgetApp.Migrations
                     b.Navigation("AppUser");
                 });
 
-            modelBuilder.Entity("BudgetApp.Models.Category", b =>
+            modelBuilder.Entity("BudgetApp.Models.BudgetCategory", b =>
                 {
-                    b.HasOne("BudgetApp.Models.Budget", null)
-                        .WithMany("Categories")
-                        .HasForeignKey("BudgetId");
+                    b.HasOne("BudgetApp.Models.Budget", "Budget")
+                        .WithMany("BudgetCategories")
+                        .HasForeignKey("BudgetId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BudgetApp.Models.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId");
+
+                    b.Navigation("Budget");
+
+                    b.Navigation("Category");
                 });
 
             modelBuilder.Entity("BudgetApp.Models.Expense", b =>
                 {
                     b.HasOne("BudgetApp.Models.Budget", null)
-                        .WithMany("Expenses")
+                        .WithMany("BudgetExpenses")
                         .HasForeignKey("BudgetId");
                 });
 
             modelBuilder.Entity("BudgetApp.Models.Income", b =>
                 {
                     b.HasOne("BudgetApp.Models.Budget", null)
-                        .WithMany("Incomes")
+                        .WithMany("BudgetIncomes")
                         .HasForeignKey("BudgetId");
                 });
 
@@ -377,11 +412,11 @@ namespace BudgetApp.Migrations
 
             modelBuilder.Entity("BudgetApp.Models.Budget", b =>
                 {
-                    b.Navigation("Categories");
+                    b.Navigation("BudgetCategories");
 
-                    b.Navigation("Expenses");
+                    b.Navigation("BudgetExpenses");
 
-                    b.Navigation("Incomes");
+                    b.Navigation("BudgetIncomes");
                 });
 #pragma warning restore 612, 618
         }

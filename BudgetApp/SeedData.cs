@@ -18,32 +18,60 @@ namespace BudgetApp
             }
 
 
-            if (!context.Budgets.Any())
+            if (context.Budgets != null && !context.Budgets.Any())
             {
                 const string SECRET_PASSWORD = "Password123!";
 
-                //Charlese - dev
-                AppUser user1 = new AppUser { UserName = "Charlese" };
-                var result = userManager.CreateAsync(user1, SECRET_PASSWORD).Result.Succeeded;
-                if (result)
+                //General Categories
+
+                Category cat1 = new() { CategoryName = "Food" };
+                Category cat2 = new() { CategoryName = "Rent" };
+                Category cat3 = new() { CategoryName = "Utilities" };
+                Category cat4 = new() { CategoryName = "Phone" };
+
+                if (context.Categories != null)
                 {
-                    _ = userManager.AddToRoleAsync(user1, "Admin").Result.Succeeded;
+                    context.Categories.Add(cat1);
+                    context.Categories.Add(cat2);
+                    context.Categories.Add(cat3);
+                    context.Categories.Add(cat4);
                 }
+                context.SaveChanges();
 
                 //Katy - fake user
                 AppUser user2 = new AppUser { UserName = "Katy" };
-                result &= userManager.CreateAsync(user2, SECRET_PASSWORD).Result.Succeeded;
+                var result = userManager.CreateAsync(user2, SECRET_PASSWORD).Result.Succeeded;
                 if (result)
                 {
                     Budget budget = new()
                     {
                         AppUser = user2,
-                        Expenses = new List<Expense>(),
-                        Categories = new List<Category>(),
-                        Incomes = new List<Income>(),
+                        BudgetExpenses = new List<Expense>(),
+                        BudgetCategories = new List<BudgetCategory>(),
+                        BudgetIncomes = new List<Income>(),
 
                     };
                     context.Budgets.Add(budget);
+
+                    BudgetCategory bcat1 = new()
+                    {
+                        BudgetId = budget.BudgetId,
+                        Budget = budget,
+                        Category = cat1,
+                        Planned = 25,
+                        Spent = 20
+                    };
+                    context.BudgetCategories.Add(bcat1);
+
+                    BudgetCategory bcat2 = new()
+                    {
+                        BudgetId = budget.BudgetId,
+                        Budget = budget,
+                        Category = cat3,
+                        Planned = 200,
+                        Spent = 200
+                    };
+                    context.BudgetCategories.Add(bcat2);
                 }
                 context.SaveChanges();
 
@@ -55,12 +83,32 @@ namespace BudgetApp
                     Budget budget = new()
                     {
                         AppUser = user3,
-                        Expenses = new List<Expense>(),
-                        Categories = new List<Category>(),
-                        Incomes = new List<Income>(),
+                        BudgetExpenses = new List<Expense>(),
+                        BudgetCategories = new List<BudgetCategory>(),
+                        BudgetIncomes = new List<Income>(),
 
                     };
                     context.Budgets.Add(budget);
+
+                    BudgetCategory bcat1 = new()
+                    {
+                        BudgetId = budget.BudgetId,
+                        Budget = budget,
+                        Category = cat2,
+                        Planned = 2000,
+                        Spent = 2000
+                    };
+                    context.BudgetCategories.Add(bcat1);
+
+                    BudgetCategory bcat2 = new()
+                    {
+                        BudgetId = budget.BudgetId,
+                        Budget = budget,
+                        Category = cat3,
+                        Planned = 500,
+                        Spent = 450
+                    };
+                    context.BudgetCategories.Add(bcat2);
                 }
                 context.SaveChanges();
 
@@ -72,12 +120,32 @@ namespace BudgetApp
                     Budget budget = new()
                     {
                         AppUser = user4,
-                        Expenses = new List<Expense>(),
-                        Categories = new List<Category>(),
-                        Incomes = new List<Income>(),
+                        BudgetExpenses = new List<Expense>(),
+                        BudgetCategories = new List<BudgetCategory>(),
+                        BudgetIncomes = new List<Income>(),
 
                     };
                     context.Budgets.Add(budget);
+
+                    BudgetCategory bcat1 = new()
+                    {
+                        BudgetId = budget.BudgetId,
+                        Budget = budget,
+                        Category = cat1,
+                        Planned = 700,
+                        Spent = 840
+                    };
+                    context.BudgetCategories.Add(bcat1);
+
+                    BudgetCategory bcat2 = new()
+                    {
+                        BudgetId = budget.BudgetId,
+                        Budget = budget,
+                        Category = cat3,
+                        Planned = 400,
+                        Spent = 400
+                    };
+                    context.BudgetCategories.Add(bcat2);
                 }
                 context.SaveChanges();
 
@@ -89,12 +157,41 @@ namespace BudgetApp
                     Budget budget = new()
                     {
                         AppUser = user5,
-                        Expenses = new List<Expense>(),
-                        Categories = new List<Category>(),
-                        Incomes = new List<Income>(),
+                        BudgetExpenses = new List<Expense>(),
+                        BudgetCategories = new List<BudgetCategory>(),
+                        BudgetIncomes = new List<Income>(),
 
                     };
                     context.Budgets.Add(budget);
+
+                    BudgetCategory bcat1 = new()
+                    {
+                        BudgetId = budget.BudgetId,
+                        Budget = budget,
+                        Category = cat4,
+                        Planned = 50,
+                        Spent = 50
+                    };
+                    context.BudgetCategories.Add(bcat1);
+
+                    BudgetCategory bcat2 = new()
+                    {
+                        BudgetId = budget.BudgetId,
+                        Budget = budget,
+                        Category = cat1,
+                        Planned = 400,
+                        Spent = 400
+                    };
+                    context.BudgetCategories.Add(bcat2);
+
+                }
+
+                //Charlese - dev
+                AppUser user1 = new AppUser { UserName = "Charlese" };
+                result &= userManager.CreateAsync(user1, SECRET_PASSWORD).Result.Succeeded;
+                if (result)
+                {
+                    _ = userManager.AddToRoleAsync(user1, "Admin").Result.Succeeded;
                 }
                 context.SaveChanges();
             }

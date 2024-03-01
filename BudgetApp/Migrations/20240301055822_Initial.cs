@@ -72,6 +72,21 @@ namespace BudgetApp.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "Categories",
+                columns: table => new
+                {
+                    CategoryId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    CategoryName = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Categories", x => x.CategoryId);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -220,21 +235,30 @@ namespace BudgetApp.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Categories",
+                name: "BudgetCategories",
                 columns: table => new
                 {
-                    CategoryId = table.Column<int>(type: "int", nullable: false)
+                    BudgetCategoryId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    BudgetId = table.Column<int>(type: "int", nullable: true)
+                    BudgetId = table.Column<int>(type: "int", nullable: false),
+                    CategoryId = table.Column<int>(type: "int", nullable: true),
+                    Planned = table.Column<int>(type: "int", nullable: false),
+                    Spent = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Categories", x => x.CategoryId);
+                    table.PrimaryKey("PK_BudgetCategories", x => x.BudgetCategoryId);
                     table.ForeignKey(
-                        name: "FK_Categories_Budgets_BudgetId",
+                        name: "FK_BudgetCategories_Budgets_BudgetId",
                         column: x => x.BudgetId,
                         principalTable: "Budgets",
-                        principalColumn: "BudgetId");
+                        principalColumn: "BudgetId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_BudgetCategories_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
+                        principalColumn: "CategoryId");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -314,14 +338,19 @@ namespace BudgetApp.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_BudgetCategories_BudgetId",
+                table: "BudgetCategories",
+                column: "BudgetId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BudgetCategories_CategoryId",
+                table: "BudgetCategories",
+                column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Budgets_AppUserId",
                 table: "Budgets",
                 column: "AppUserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Categories_BudgetId",
-                table: "Categories",
-                column: "BudgetId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Expenses_BudgetId",
@@ -352,7 +381,7 @@ namespace BudgetApp.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Categories");
+                name: "BudgetCategories");
 
             migrationBuilder.DropTable(
                 name: "Expenses");
@@ -362,6 +391,9 @@ namespace BudgetApp.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Categories");
 
             migrationBuilder.DropTable(
                 name: "Budgets");

@@ -6,11 +6,11 @@
 
         public AppUser AppUser { get; set; }
 
-        public IList<Expense> Expenses { get; set; }
+        public IList<Expense> BudgetExpenses { get; set; }
 
-        public IList<Category> Categories { get; set; }
+        public ICollection<BudgetCategory> BudgetCategories { get; set; } = new List<BudgetCategory>();
 
-        public IList<Income> Incomes { get; set; }
+        public IList<Income> BudgetIncomes { get; set; }
 
     }
 }
