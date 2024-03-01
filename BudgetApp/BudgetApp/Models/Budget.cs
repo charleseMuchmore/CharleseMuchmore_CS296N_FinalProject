@@ -4,11 +4,11 @@
     {
         public int BudgetId { get; set; }
 
-        public List<Expense> Expenses { get; set; }
+        public IList<Expense> Expenses { get; set; }
 
-        public List<Category> Categories { get; set; }
+        public IList<Category> Categories { get; set; }
 
-        public List<Income> Incomes { get; set; }
+        public IList<Income> Incomes { get; set; }
 
     }
 }
