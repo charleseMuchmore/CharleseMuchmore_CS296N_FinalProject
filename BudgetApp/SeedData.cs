@@ -60,8 +60,7 @@ namespace BudgetApp
                         BudgetId = budget.BudgetId,
                         Budget = budget,
                         Category = cat1,
-                        Planned = 25,
-                        Spent = 20
+                        Planned = 25
                     };
 
                     BudgetCategory bcat2 = new()
@@ -69,8 +68,7 @@ namespace BudgetApp
                         BudgetId = budget.BudgetId,
                         Budget = budget,
                         Category = cat3,
-                        Planned = 200,
-                        Spent = 200
+                        Planned = 200
                     };
                     context.BudgetCategories.Add(bcat1);
                     context.BudgetCategories.Add(bcat2);
@@ -137,8 +135,7 @@ namespace BudgetApp
                         BudgetId = budget.BudgetId,
                         Budget = budget,
                         Category = cat2,
-                        Planned = 2000,
-                        Spent = 2000
+                        Planned = 2000
                     };
 
                     BudgetCategory bcat2 = new()
@@ -146,8 +143,7 @@ namespace BudgetApp
                         BudgetId = budget.BudgetId,
                         Budget = budget,
                         Category = cat3,
-                        Planned = 500,
-                        Spent = 450
+                        Planned = 500
                     };
                     context.BudgetCategories.Add(bcat1);
                     context.BudgetCategories.Add(bcat2);
@@ -215,8 +211,7 @@ namespace BudgetApp
                         BudgetId = budget.BudgetId,
                         Budget = budget,
                         Category = cat1,
-                        Planned = 700,
-                        Spent = 840
+                        Planned = 700
                     };
 
                     BudgetCategory bcat2 = new()
@@ -224,8 +219,7 @@ namespace BudgetApp
                         BudgetId = budget.BudgetId,
                         Budget = budget,
                         Category = cat3,
-                        Planned = 400,
-                        Spent = 400
+                        Planned = 400
                     };
                     context.BudgetCategories.Add(bcat1);
                     context.BudgetCategories.Add(bcat2);
@@ -301,8 +295,7 @@ namespace BudgetApp
                         BudgetId = budget.BudgetId,
                         Budget = budget,
                         Category = cat4,
-                        Planned = 50,
-                        Spent = 50
+                        Planned = 50
                     };
 
                     BudgetCategory bcat2 = new()
@@ -310,8 +303,7 @@ namespace BudgetApp
                         BudgetId = budget.BudgetId,
                         Budget = budget,
                         Category = cat1,
-                        Planned = 400,
-                        Spent = 400
+                        Planned = 400
                     };
                     context.BudgetCategories.Add(bcat1);
                     context.BudgetCategories.Add(bcat2);

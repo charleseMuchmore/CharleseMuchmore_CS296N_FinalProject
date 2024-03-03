@@ -13,8 +13,6 @@ namespace BudgetApp.Models
 
         public int Planned { get; set; }
 
-        public int Spent { get; set; }
-
         public ICollection<Expense> Expenses { get; set; } = new List<Expense>();
     }
 }

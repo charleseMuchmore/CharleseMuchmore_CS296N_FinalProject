@@ -242,8 +242,7 @@ namespace BudgetApp.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     BudgetId = table.Column<int>(type: "int", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: true),
-                    Planned = table.Column<int>(type: "int", nullable: false),
-                    Spent = table.Column<int>(type: "int", nullable: false)
+                    Planned = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
