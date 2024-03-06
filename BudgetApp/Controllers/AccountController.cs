@@ -74,6 +74,11 @@ namespace BudgetApp.Controllers
             return RedirectToAction("Index", "Home");   
         }
 
+        public ViewResult Index()
+        {
+            return View();
+        }
+
         public ViewResult AccessDenied()
         {
             return View();

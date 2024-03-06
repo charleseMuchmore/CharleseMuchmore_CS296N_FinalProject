@@ -41,8 +41,10 @@
                                 <li class="nav-item">
                                     <form method="post" asp-action="Logout" asp-controller="Account">
                                         <input type="submit" value="Log Out" class="btn btn-outline-dark" />
-                                        <span class="text-dark">@User.Identity.Name</span>
                                     </form>
+                                </li>
+                                <li>
+                                    <a class="btn text-dark" asp-area="" asp-controller="Account" asp-action="Index">@User.Identity.Name</a>
                                 </li>
                             }
                             else
