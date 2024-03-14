@@ -1,4 +1,24 @@
-﻿@{
+﻿@model AppUser
+@{
     ViewData["Title"] = "Account Page";
 }
 
+
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Hi @Model.UserName !</h5>
+
+            <!-- Nested Child Card -->
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Profile Picture</h5>
+                    <img src="@Model.ProfilePicture" alt="imgNotFound" class="pfp-big" /><br />
+                    <a asp-action="Upload">Upload a file</a><br />
+                </div>
+            </div>
+
+            <p class="card-text">This is the content of the parent card.</p>
+        </div>
+    </div>
+</div>

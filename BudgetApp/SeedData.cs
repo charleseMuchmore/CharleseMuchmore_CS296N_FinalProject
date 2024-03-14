@@ -355,6 +355,7 @@ namespace BudgetApp
                 {
                     _ = userManager.AddToRoleAsync(user1, "Admin").Result.Succeeded;
                 }
+                user1.ProfilePicture = "empty";
                 context.SaveChanges();
             }
         }

@@ -2,15 +2,19 @@
 {
     public class Budget
     {
-        public int BudgetId { get; set; }
+        public int BudgetId { get; set; }   
 
-        public AppUser AppUser { get; set; }
+        public string? BudgetName { get; set;}
 
-        public ICollection<Expense> BudgetExpenses { get; set; } = new List<Expense>();
+        public AppUser AppUser { get; set;}
 
-        public ICollection<BudgetCategory> BudgetCategories { get; set; } = new List<BudgetCategory>();
+        public DateOnly StartDate { get; set; }
+        public DateOnly EndDate { get; set;}
 
-        public ICollection<Income> BudgetIncomes { get; set; } = new List<Income>();    
+        public ICollection<Expense> BudgetExpenses { get; set;}
 
+        public ICollection<BudgetCategory> BudgetCategories { get; set;}
+
+        public ICollection<Income> BudgetIncomes { get; set;}
     }
 }

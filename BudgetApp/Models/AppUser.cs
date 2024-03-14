@@ -8,6 +8,9 @@ namespace BudgetApp.Models
     public class AppUser : IdentityUser
     {
         public string? Name { get; set; }
+        public string? ProfilePicture { get; set; }
+
+
 
         [NotMapped]
         public IList<string>? RoleNames { get; set; }

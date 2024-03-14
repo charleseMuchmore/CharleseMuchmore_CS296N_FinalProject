@@ -15,8 +15,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
 
-/*builder.Services.AddTransient<IBudgetsRepository, BudgetsRepository>();
-*/
+builder.Services.AddTransient<IBudgetRepository, BudgetRepository>();
+
 builder.Services.AddIdentity<AppUser, IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
@@ -47,6 +47,13 @@ using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     SeedData.Seed(dbContext, scope.ServiceProvider);
+}
+
+// create a file upload folder in the web root if it doesn't already exist
+var fileUploadFolder = Path.Combine(app.Environment.WebRootPath, FileHelpers.UPLOAD_FOLDER);
+if (!Directory.Exists(fileUploadFolder))
+{
+    Directory.CreateDirectory(fileUploadFolder);
 }
 
 app.Run();
