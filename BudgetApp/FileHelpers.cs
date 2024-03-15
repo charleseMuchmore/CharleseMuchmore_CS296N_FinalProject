@@ -16,7 +16,7 @@
 
     public static class FileHelpers
     {
-        public const string UPLOAD_FOLDER = "Files";
+        public const string UPLOAD_FOLDER = "img";
         // If you require a check on specific characters in the IsValidFileExtensionAndSignature
         // method, supply the characters in the _allowedChars field.
         private static readonly byte[] _allowedChars = { };

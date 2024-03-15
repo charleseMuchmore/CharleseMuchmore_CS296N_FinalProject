@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Text.RegularExpressions;
+using static NuGet.Packaging.PackagingConstants;
 
 namespace BudgetApp.Controllers
 {
@@ -89,10 +91,9 @@ namespace BudgetApp.Controllers
         /************* File Upload Action Methods ***********/
 
         private readonly long _fileSizeLimit = 2097162; // 2,097,162
-        private readonly string[] _permittedExtensions = { "jpg", ".png", ".jpeg" };
+        private readonly string[] _permittedExtensions = { ".jpg", ".png", ".jpeg" };
         public string Result { get; private set; }
-        /*        private readonly string _targetFilePath = "C:\\Users\\charl\\OneDrive\\Desktop\\ASP.NET\\CharleseMuchmore_CS296N_FinalProject\\BudgetApp\\wwwroot\\img\\";
-        */
+      
         private readonly string _serverFilePath = "\\img\\";
 
         public async Task<ViewResult> Index(AppUser model)
@@ -123,6 +124,7 @@ namespace BudgetApp.Controllers
         public async Task<IActionResult> Upload(AccountVM model)
         {
             IFormFile formFile = model.Image;
+            string fileExtensionType = formFile.ContentType.Remove(0, 5).Replace("/", ".");
             if (!ModelState.IsValid)
             {
                 Result = "Please correct the form.";
@@ -144,12 +146,13 @@ namespace BudgetApp.Controllers
             // For the file name of the uploaded file stored
             // server-side, use Path.GetRandomFileName to generate a safe
             // random file name.
-            var trustedFileNameForFileStorage = Path.GetRandomFileName();
+            var trustedFileNameForFileStorage = Path.GetRandomFileName(); 
+
+            trustedFileNameForFileStorage = trustedFileNameForFileStorage
+                .Remove((trustedFileNameForFileStorage
+                .Count() - 5), 4) + fileExtensionType;
             var filePath = Path.Combine(
                 _targetFilePath, trustedFileNameForFileStorage);
-            var serverFilePath = Path.Combine(
-                _serverFilePath, trustedFileNameForFileStorage);
-
 
             //adding filepath to the user
             var user = await userManager.GetUserAsync(User);
