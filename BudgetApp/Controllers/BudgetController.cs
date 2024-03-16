@@ -1,6 +1,7 @@
 ﻿using BudgetApp.Data;
 using BudgetApp.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Cryptography.X509Certificates;
 
@@ -15,14 +16,33 @@ namespace BudgetApp.Controllers
             userManager = userMngr;
             budgetRepository = br;
         }
-        public async Task<IActionResult> Index(Budget model)
+
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> Index()
         {
             var user = await userManager.GetUserAsync(User);
-            var userId = userManager.GetUserId(User);
             List<Budget> budgets = budgetRepository.GetBudgets()
-                .Where(b => b.AppUser == user)
+                .Where(u => u.AppUser.Id == user.Id)
                 .ToList<Budget>();
-            return View(budgets);
+            List<BudgetVM> models = new List<BudgetVM>();
+            foreach ( var b in budgets )
+            {
+                var bvm = VMConverter.ToBudgetVM(b);
+                models.Add( bvm );
+            }
+            return View(models);
+        }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> Budget(int budgetId)
+        {
+            BudgetVM model = new BudgetVM();
+            Budget b = await budgetRepository.GetBudgetByIdAsync(budgetId);
+            model = VMConverter.ToBudgetVM(b);
+
+            return View(model);
         }
     }
 }
