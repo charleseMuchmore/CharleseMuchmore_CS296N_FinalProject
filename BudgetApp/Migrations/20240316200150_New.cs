@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BudgetApp.Migrations
 {
-    public partial class Initial : Migration
+    public partial class New : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -248,7 +248,8 @@ namespace BudgetApp.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     BudgetId = table.Column<int>(type: "int", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: true),
-                    Planned = table.Column<int>(type: "int", nullable: false)
+                    Planned = table.Column<int>(type: "int", nullable: false),
+                    ExpenseTotal = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

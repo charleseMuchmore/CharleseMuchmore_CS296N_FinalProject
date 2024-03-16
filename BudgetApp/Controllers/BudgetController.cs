@@ -10,11 +10,15 @@ namespace BudgetApp.Controllers
     public class BudgetController : Controller
     {
         IBudgetRepository budgetRepository;
+        ICategoryRepository categoryRepository;
+        IBudgetCategoryRepository bcRepository;
         UserManager<AppUser> userManager;
-        public BudgetController(UserManager<AppUser> userMngr, IBudgetRepository br)
+        public BudgetController(UserManager<AppUser> userMngr, IBudgetRepository br, ICategoryRepository cr, IBudgetCategoryRepository bcr)
         {
             userManager = userMngr;
             budgetRepository = br;
+            categoryRepository = cr;
+            bcRepository = bcr;
         }
 
         [Authorize]
@@ -36,13 +40,57 @@ namespace BudgetApp.Controllers
 
         [HttpGet]
         [Authorize]
-        public async Task<IActionResult> Budget(int budgetId)
+        public async Task<IActionResult> Budget(int budgetId, bool fromRedirect = false)
         {
-            BudgetVM model = new BudgetVM();
-            Budget b = await budgetRepository.GetBudgetByIdAsync(budgetId);
-            model = VMConverter.ToBudgetVM(b);
+                BudgetVM model = new BudgetVM();
+                Budget b = await budgetRepository.GetBudgetByIdAsync(budgetId);
+                model = VMConverter.ToBudgetVM(b);
+                foreach (var bcat in model.BudgetCategories)
+                {
+                    foreach (var e in bcat.Expenses)
+                    {
+                        bcat.ExpenseTotal += e.ExpenseAmount;
+                    }
+                }
 
             return View(model);
+        }
+
+        [HttpGet]
+        [Authorize]
+        public ActionResult AddCategory(int budgetId)
+        {
+            List<Category> cats = categoryRepository.GetCategories();
+            BudgetCategoryVM model = new BudgetCategoryVM();
+            model.Categories = cats;
+            model.BudgetId = budgetId;
+            return View(model);
+        }
+
+
+        [HttpPost]
+        [Authorize]
+        public async Task<ActionResult> AddCategory(Category model, int PlannedAmount, int BudgetId)
+        {
+            BudgetCategory budgetCat = new BudgetCategory();
+
+            
+//            budgetCat.BudgetCategoryId = 0; //default generated
+            budgetCat.BudgetId = BudgetId;
+            var b = await budgetRepository.GetBudgetByIdAsync(BudgetId);
+            budgetCat.Budget = b;
+
+            List<Category> bcats = categoryRepository.GetCategories()
+                .Where(c => c.CategoryName == model.CategoryName)
+                .ToList();
+            budgetCat.Category = bcats[0]; //note: categories are unique, and the list should only have 1 category 
+            budgetCat.Planned = PlannedAmount;
+            budgetCat.Expenses = new List<Expense>();
+            budgetCat.ExpenseTotal = 0;
+
+            await bcRepository.StoreBudgetCategoriesAsync(budgetCat);
+
+            return RedirectToAction("Budget", BudgetId);
         }
     }
 }

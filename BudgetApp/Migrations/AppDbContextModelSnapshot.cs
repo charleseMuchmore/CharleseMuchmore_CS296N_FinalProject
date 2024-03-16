@@ -57,6 +57,9 @@ namespace BudgetApp.Migrations
                     b.Property<int?>("CategoryId")
                         .HasColumnType("int");
 
+                    b.Property<int>("ExpenseTotal")
+                        .HasColumnType("int");
+
                     b.Property<int>("Planned")
                         .HasColumnType("int");
 

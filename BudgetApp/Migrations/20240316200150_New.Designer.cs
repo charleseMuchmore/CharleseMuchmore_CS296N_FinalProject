@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BudgetApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240316165128_Initial")]
-    partial class Initial
+    [Migration("20240316200150_New")]
+    partial class New
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -57,6 +57,9 @@ namespace BudgetApp.Migrations
                         .HasColumnType("int");
 
                     b.Property<int?>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ExpenseTotal")
                         .HasColumnType("int");
 
                     b.Property<int>("Planned")

@@ -3,4 +3,35 @@
     ViewData["Title"] = "Budget Page";
 }
 
-<h1>@Model.BudgetID</h1>
+@foreach (var cat in Model.BudgetCategories)
+{
+    <div class="card" style="width: 28rem;">
+        <h5 class="card-title">
+            <span>@cat.Category.CategoryName  </span>
+            <span>  @((cat.Planned) - (cat.ExpenseTotal))</span><span> / @cat.Planned</span>
+        </h5>
+        <div class="card-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        Planned
+                    </div>
+                    <div class="col">
+                        Spent
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <span>@cat.Planned</span>
+                    </div>
+                    <div class="col">
+                        <span>@cat.ExpenseTotal</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+<a href="AddCategory?budgetId=@Model.BudgetID" class="btn btn-primary">Add Category</a>

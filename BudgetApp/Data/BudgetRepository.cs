@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-
 namespace BudgetApp.Data
 {
     public class BudgetRepository : IBudgetRepository
@@ -21,6 +20,7 @@ namespace BudgetApp.Data
                 .Include(b => b.AppUser)
                 .Include(e => e.BudgetExpenses)
                 .Include(e => e.BudgetCategories)
+                .ThenInclude(e => e.Category)
                 .Include(e => e.BudgetIncomes)
                 .FirstOrDefault();
         }
