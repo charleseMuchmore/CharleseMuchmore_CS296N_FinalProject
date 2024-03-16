@@ -40,7 +40,7 @@ namespace BudgetApp.Controllers
 
         [HttpGet]
         [Authorize]
-        public async Task<IActionResult> Budget(int budgetId, bool fromRedirect = false)
+        public async Task<IActionResult> Budget(int budgetId)
         {
                 BudgetVM model = new BudgetVM();
                 Budget b = await budgetRepository.GetBudgetByIdAsync(budgetId);
@@ -70,14 +70,14 @@ namespace BudgetApp.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<ActionResult> AddCategory(Category model, int PlannedAmount, int BudgetId)
+        public async Task<ActionResult> AddCategory(Category model, int PlannedAmount, int budgetId)
         {
             BudgetCategory budgetCat = new BudgetCategory();
 
             
 //            budgetCat.BudgetCategoryId = 0; //default generated
-            budgetCat.BudgetId = BudgetId;
-            var b = await budgetRepository.GetBudgetByIdAsync(BudgetId);
+            budgetCat.BudgetId = budgetId;
+            var b = await budgetRepository.GetBudgetByIdAsync(budgetId);
             budgetCat.Budget = b;
 
             List<Category> bcats = categoryRepository.GetCategories()
@@ -90,7 +90,7 @@ namespace BudgetApp.Controllers
 
             await bcRepository.StoreBudgetCategoriesAsync(budgetCat);
 
-            return RedirectToAction("Budget", BudgetId);
+            return RedirectToAction("Budget", new { budgetId = budgetId });
         }
     }
 }
