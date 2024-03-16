@@ -9,5 +9,7 @@ namespace BudgetApp.Data
         public List<BudgetCategory> GetBudgetCategories();
 
         public Task<int> StoreBudgetCategoriesAsync(BudgetCategory budget);
+
+        public Task<int> DeleteBudgetCategoryAsync(int id);
     }
 }

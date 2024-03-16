@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Cryptography.X509Certificates;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 namespace BudgetApp.Controllers
 {
@@ -73,9 +74,6 @@ namespace BudgetApp.Controllers
         public async Task<ActionResult> AddCategory(Category model, int PlannedAmount, int budgetId)
         {
             BudgetCategory budgetCat = new BudgetCategory();
-
-            
-//            budgetCat.BudgetCategoryId = 0; //default generated
             budgetCat.BudgetId = budgetId;
             var b = await budgetRepository.GetBudgetByIdAsync(budgetId);
             budgetCat.Budget = b;
@@ -91,6 +89,27 @@ namespace BudgetApp.Controllers
             await bcRepository.StoreBudgetCategoriesAsync(budgetCat);
 
             return RedirectToAction("Budget", new { budgetId = budgetId });
+        }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> DeleteBudgetCategory(int bcatId, int budgetId)
+        {
+            var bcat = await bcRepository.GetBudgetCategoryByIdAsync(bcatId);
+            var cat = bcat.Category;
+            var model = new DeleteBudgetCategoryVM();
+            model.BudgetId = budgetId;
+            model.BudgetCategoryId = bcatId;
+            model.BudgetCategoryName = cat.CategoryName;
+            return View(model);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> DeleteBudgetCategory(DeleteBudgetCategoryVM model)
+        {
+            await bcRepository.DeleteBudgetCategoryAsync(model.BudgetCategoryId);
+            return RedirectToAction("Budget", new { budgetId = model.BudgetId });
         }
     }
 }
