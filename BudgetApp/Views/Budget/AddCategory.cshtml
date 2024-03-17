@@ -1,6 +1,7 @@
 ﻿@model BudgetCategoryVM
 
 <form method="Post">
+    <div asp-validation-summary="All" class="text-danger"></div>
     <label for="planned">Planned Amount:</label><br />
     <input type="number" id="planned" name="PlannedAmount"/>
 

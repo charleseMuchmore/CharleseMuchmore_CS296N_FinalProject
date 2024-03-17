@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BudgetApp.Models
 {
@@ -7,8 +8,10 @@ namespace BudgetApp.Models
         public int BudgetCategoryId { get; set; }
         public int BudgetId { get; set; }
 
-        public Budget Budget { get; set; }  
+        [Required(ErrorMessage = "There must be a Budget")]
+        public Budget Budget { get; set; }
 
+        [Required(ErrorMessage = "There must be a Category")]
         public Category? Category { get; set; }
 
         public int Planned { get; set; }
