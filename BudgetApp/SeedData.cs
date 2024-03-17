@@ -100,7 +100,8 @@ namespace BudgetApp
                         BudgetCategoryId = bcat1.BudgetCategoryId,
                         BudgetCategory = bcat1, 
                         ExpenseAmount = 1000,
-                        AppUser = user2
+                        AppUser = user2,
+                        ExpenseLocation = "nowhere"
                     };
 
                     Expense expense2 = new()
@@ -110,7 +111,8 @@ namespace BudgetApp
                         BudgetCategoryId = bcat2.BudgetCategoryId,
                         BudgetCategory = bcat2,
                         ExpenseAmount = 1500,
-                        AppUser = user2
+                        AppUser = user2,
+                        ExpenseLocation = "nowhere"
                     };
                     context.Expenses.Add(expense1);
                     context.Expenses.Add(expense2);
@@ -171,7 +173,8 @@ namespace BudgetApp
                         BudgetCategoryId = bcat1.BudgetCategoryId,
                         BudgetCategory = bcat1,
                         ExpenseAmount = 450,
-                        AppUser = user3
+                        AppUser = user3,
+                        ExpenseLocation = "nowhere"
                     };
                     Expense expense3 = new()
                     {
@@ -180,7 +183,8 @@ namespace BudgetApp
                         BudgetCategoryId = bcat1.BudgetCategoryId,
                         BudgetCategory = bcat1,
                         ExpenseAmount = 320,
-                        AppUser = user3
+                        AppUser = user3,
+                        ExpenseLocation = "nowhere"
                     };
 
                     Expense expense2 = new()
@@ -190,7 +194,8 @@ namespace BudgetApp
                         BudgetCategoryId = bcat2.BudgetCategoryId,
                         BudgetCategory = bcat2,
                         ExpenseAmount = 1500,
-                        AppUser = user3
+                        AppUser = user3,
+                        ExpenseLocation = "nowhere"
                     };
                     context.Expenses.Add(expense1);
                     context.Expenses.Add(expense2);
@@ -262,7 +267,8 @@ namespace BudgetApp
                         BudgetCategoryId = bcat1.BudgetCategoryId,
                         BudgetCategory = bcat1,
                         ExpenseAmount = 450,
-                        AppUser = user4
+                        AppUser = user4,
+                        ExpenseLocation = "nowhere"
                     };
                     Expense expense3 = new()
                     {
@@ -271,7 +277,8 @@ namespace BudgetApp
                         BudgetCategoryId = bcat1.BudgetCategoryId,
                         BudgetCategory = bcat1,
                         ExpenseAmount = 320,
-                        AppUser = user4
+                        AppUser = user4,
+                        ExpenseLocation = "nowhere"
                     };
 
                     Expense expense2 = new()
@@ -281,7 +288,8 @@ namespace BudgetApp
                         BudgetCategoryId = bcat2.BudgetCategoryId,
                         BudgetCategory = bcat2,
                         ExpenseAmount = 1500,
-                        AppUser = user4
+                        AppUser = user4,
+                        ExpenseLocation = "nowhere"
                     };
                     context.Expenses.Add(expense1);
                     context.Expenses.Add(expense2);
@@ -343,7 +351,8 @@ namespace BudgetApp
                         BudgetCategoryId = bcat1.BudgetCategoryId,
                         BudgetCategory = bcat1,
                         ExpenseAmount = 450,
-                        AppUser = user5
+                        AppUser = user5,
+                        ExpenseLocation = "nowhere"
                     };
                     Expense expense3 = new()
                     {
@@ -352,7 +361,8 @@ namespace BudgetApp
                         BudgetCategoryId = bcat1.BudgetCategoryId,
                         BudgetCategory = bcat1,
                         ExpenseAmount = 320,
-                        AppUser = user5
+                        AppUser = user5,
+                        ExpenseLocation = "nowhere"
                     };
 
                     Expense expense2 = new()
@@ -362,7 +372,8 @@ namespace BudgetApp
                         BudgetCategoryId = bcat2.BudgetCategoryId,
                         BudgetCategory = bcat2,
                         ExpenseAmount = 1500,
-                        AppUser = user5
+                        AppUser = user5,
+                        ExpenseLocation = "nowhere"
                     };
                     context.Expenses.Add(expense1);
                     context.Expenses.Add(expense2);

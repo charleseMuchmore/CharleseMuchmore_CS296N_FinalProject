@@ -108,6 +108,10 @@ namespace BudgetApp.Migrations
                     b.Property<DateOnly>("ExpenseDate")
                         .HasColumnType("date");
 
+                    b.Property<string>("ExpenseLocation")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.HasKey("ExpenseId");
 
                     b.HasIndex("AppUserId");

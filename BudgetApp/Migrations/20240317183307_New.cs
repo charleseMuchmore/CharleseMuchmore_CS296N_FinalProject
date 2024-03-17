@@ -310,7 +310,9 @@ namespace BudgetApp.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     BudgetCategoryId = table.Column<int>(type: "int", nullable: false),
                     ExpenseDate = table.Column<DateOnly>(type: "date", nullable: false),
-                    ExpenseAmount = table.Column<int>(type: "int", nullable: false)
+                    ExpenseAmount = table.Column<int>(type: "int", nullable: false),
+                    ExpenseLocation = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {

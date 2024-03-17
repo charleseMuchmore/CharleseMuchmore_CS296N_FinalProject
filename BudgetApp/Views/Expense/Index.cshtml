@@ -1,3 +1,24 @@
-﻿@{
+﻿@model List<Expense>
+@{
     ViewData["Title"] = "Expense Page";
+}
+
+<a class="btn btn-primary" href="Expense/AddExpense">New Expense</a>
+
+@foreach (var expense in Model)
+{
+    <div class="card" style="width: 18rem;">
+        <h5 class="card-title">
+            @expense.ExpenseAmount
+        </h5>
+        <div class="card-body">
+            <p class="card-text">
+                <div>@expense.ExpenseDate</div>
+                <div>@expense.ExpenseLocation</div>
+            </p>
+            <a class="btn btn-primary" href="Expense/Expense?expenseId=@expense.ExpenseId">View Expense</a>
+            <hr />
+            <a class="btn btn-primary" href="Expense/DeleteExpense?expenseId=@expense.ExpenseId">Delete Expense</a>
+        </div>
+    </div>
 }

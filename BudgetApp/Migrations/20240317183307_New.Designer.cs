@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BudgetApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240317180829_New")]
+    [Migration("20240317183307_New")]
     partial class New
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -109,6 +109,10 @@ namespace BudgetApp.Migrations
 
                     b.Property<DateOnly>("ExpenseDate")
                         .HasColumnType("date");
+
+                    b.Property<string>("ExpenseLocation")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.HasKey("ExpenseId");
 

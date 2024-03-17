@@ -15,5 +15,7 @@
 
         public DateOnly ExpenseDate { get; set; }
         public int ExpenseAmount { get; set; }
+
+        public string ExpenseLocation { get; set; }
     }
 }
