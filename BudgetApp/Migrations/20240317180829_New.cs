@@ -274,18 +274,28 @@ namespace BudgetApp.Migrations
                 {
                     IncomeId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    BudgetId = table.Column<int>(type: "int", nullable: false),
-                    IncomeAmount = table.Column<int>(type: "int", nullable: false)
+                    BudgetId = table.Column<int>(type: "int", nullable: true),
+                    AppUserId = table.Column<string>(type: "varchar(255)", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    IncomeAmount = table.Column<int>(type: "int", nullable: false),
+                    IncomeDate = table.Column<DateOnly>(type: "date", nullable: false),
+                    IncomeSource = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Incomes", x => x.IncomeId);
                     table.ForeignKey(
+                        name: "FK_Incomes_AspNetUsers_AppUserId",
+                        column: x => x.AppUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_Incomes_Budgets_BudgetId",
                         column: x => x.BudgetId,
                         principalTable: "Budgets",
-                        principalColumn: "BudgetId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "BudgetId");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -296,12 +306,21 @@ namespace BudgetApp.Migrations
                     ExpenseId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     BudgetId = table.Column<int>(type: "int", nullable: false),
+                    AppUserId = table.Column<string>(type: "varchar(255)", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     BudgetCategoryId = table.Column<int>(type: "int", nullable: false),
+                    ExpenseDate = table.Column<DateOnly>(type: "date", nullable: false),
                     ExpenseAmount = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Expenses", x => x.ExpenseId);
+                    table.ForeignKey(
+                        name: "FK_Expenses_AspNetUsers_AppUserId",
+                        column: x => x.AppUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Expenses_BudgetCategories_BudgetCategoryId",
                         column: x => x.BudgetCategoryId,
@@ -370,6 +389,11 @@ namespace BudgetApp.Migrations
                 column: "AppUserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Expenses_AppUserId",
+                table: "Expenses",
+                column: "AppUserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Expenses_BudgetCategoryId",
                 table: "Expenses",
                 column: "BudgetCategoryId");
@@ -378,6 +402,11 @@ namespace BudgetApp.Migrations
                 name: "IX_Expenses_BudgetId",
                 table: "Expenses",
                 column: "BudgetId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Incomes_AppUserId",
+                table: "Incomes",
+                column: "AppUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Incomes_BudgetId",

@@ -1,0 +1,13 @@
+﻿@model IncomeVM
+
+<form method="Post">
+    <label for="confirm">Do you really want to delete <span>@Model.IncomeAmount</span> 
+        @if (Model.IncomeSource != null)
+        {
+            <span>from @Model.IncomeSource</span>
+        }
+    ?</label>
+    <input hidden value="@Model.IncomeId" name="IncomeId"/>
+    <input hidden value="@Model.BudgetId" name="BudgetId" />
+    <input id="confirm" type="submit" value="Yes" />
+</form>
