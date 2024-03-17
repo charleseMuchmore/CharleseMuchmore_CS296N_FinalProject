@@ -1,0 +1,9 @@
+﻿@model DeleteBudgetCategoryVM
+
+<form method="Post">
+    <label for="confirm">Do you really want to delete <span>@Model.BudgetCategoryName</span></label>
+    <input hidden value="@Model.BudgetId" name="BudgetId"/>
+    <input hidden value="@Model.BudgetCategoryId" name="BudgetCategoryId" />
+    <input hidden value="@Model.BudgetCategoryName" name="BudgetCategoryName" />
+    <input id="confirm" type="submit" value="Yes" />
+</form>

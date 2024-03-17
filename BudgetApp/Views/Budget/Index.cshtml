@@ -1,0 +1,41 @@
+﻿@model List<BudgetVM>
+@{
+    ViewData["Title"] = "Budget Page";
+}
+
+<h1>Your Budgets:</h1>
+<a class="btn" href="Budget/AddBudget">New Budget</a>
+
+<div>
+    @foreach (var budget in Model)
+    {
+        <div class="card" style="width: 18rem;">
+            <h5 class="card-title">
+                @if (budget.BudgetName == null)
+                {
+                    <span>Budget #</span>@budget.BudgetID
+                } else 
+                {
+                    @budget.BudgetName
+                }</h5>
+            <div class="card-body">
+             <p class="card-text">
+                <div>@budget.StartDate -@budget.EndDate</div>
+                <div>Total Income: @budget.IncomeTotal</div>
+                <div>Total Spent: @budget.ExpenseTotal</div>
+             </p>
+                <a class="btn btn-primary" href="Budget/Budget?budgetId=@budget.BudgetID">View Budget</a>
+                <hr />
+                <a class="btn btn-primary" href="Budget/DeleteBudget?budgetId=@budget.BudgetID">Delete Budget</a>
+            </div>
+        </div>
+    }
+</div>
+
+
+
+
+
+
+
+

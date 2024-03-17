@@ -1,0 +1,24 @@
+﻿@model List<Income>
+@{
+    ViewData["Title"] = "Income Page";
+}
+
+<a class="btn btn-primary" href="Income/AddIncome">New Income</a>
+
+@foreach (var income in Model)
+{
+    <div class="card" style="width: 18rem;">
+        <h5 class="card-title">
+            @income.IncomeAmount
+        </h5>
+        <div class="card-body">
+            <p class="card-text">
+                <div>@income.IncomeDate</div>
+                <div>@income.IncomeSource</div>
+            </p>
+            <a class="btn btn-primary" href="Income/Income?incomeId=@income.IncomeId">View Income</a>
+            <hr />
+            <a class="btn btn-primary" href="Income/DeleteIncome?incomeId=@income.IncomeId">Delete Income</a>
+        </div>
+    </div>
+}
