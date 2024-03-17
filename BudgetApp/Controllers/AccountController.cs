@@ -94,8 +94,8 @@ namespace BudgetApp.Controllers
         private readonly string[] _permittedExtensions = { ".jpg", ".png", ".jpeg" };
         public string Result { get; private set; }
       
-        private readonly string _serverFilePath = "\\img\\";
-
+/*        private readonly string _serverFilePath = "\\img\\";
+*/
         public async Task<ViewResult> Index(AppUser model)
         {
             AppUser user = await userManager.GetUserAsync(User);

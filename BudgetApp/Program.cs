@@ -16,6 +16,10 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 
 builder.Services.AddTransient<IBudgetRepository, BudgetRepository>();
+builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
+builder.Services.AddTransient<IBudgetCategoryRepository, BudgetCategoryRepository>();
+builder.Services.AddTransient<IIncomeRepository, IncomeRepository>();
+builder.Services.AddTransient<IExpenseRepository, ExpenseRepository>();
 
 builder.Services.AddIdentity<AppUser, IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>()

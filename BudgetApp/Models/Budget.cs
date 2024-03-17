@@ -11,10 +11,10 @@
         public DateOnly StartDate { get; set; }
         public DateOnly EndDate { get; set;}
 
-        public ICollection<Expense> BudgetExpenses { get; set;}
+        public ICollection<Expense>? BudgetExpenses { get; set;} 
 
-        public ICollection<BudgetCategory> BudgetCategories { get; set;}
+        public ICollection<BudgetCategory>? BudgetCategories { get; set;}
 
-        public ICollection<Income> BudgetIncomes { get; set;}
+        public ICollection<Income>? BudgetIncomes { get; set;}
     }
 }

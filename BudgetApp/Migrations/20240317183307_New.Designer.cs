@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BudgetApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240313231049_New")]
+    [Migration("20240317183307_New")]
     partial class New
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -59,6 +59,9 @@ namespace BudgetApp.Migrations
                     b.Property<int?>("CategoryId")
                         .HasColumnType("int");
 
+                    b.Property<int>("ExpenseTotal")
+                        .HasColumnType("int");
+
                     b.Property<int>("Planned")
                         .HasColumnType("int");
 
@@ -91,6 +94,10 @@ namespace BudgetApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<string>("AppUserId")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
                     b.Property<int>("BudgetCategoryId")
                         .HasColumnType("int");
 
@@ -100,7 +107,16 @@ namespace BudgetApp.Migrations
                     b.Property<int>("ExpenseAmount")
                         .HasColumnType("int");
 
+                    b.Property<DateOnly>("ExpenseDate")
+                        .HasColumnType("date");
+
+                    b.Property<string>("ExpenseLocation")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.HasKey("ExpenseId");
+
+                    b.HasIndex("AppUserId");
 
                     b.HasIndex("BudgetCategoryId");
 
@@ -115,13 +131,25 @@ namespace BudgetApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("BudgetId")
+                    b.Property<string>("AppUserId")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<int?>("BudgetId")
                         .HasColumnType("int");
 
                     b.Property<int>("IncomeAmount")
                         .HasColumnType("int");
 
+                    b.Property<DateOnly>("IncomeDate")
+                        .HasColumnType("date");
+
+                    b.Property<string>("IncomeSource")
+                        .HasColumnType("longtext");
+
                     b.HasKey("IncomeId");
+
+                    b.HasIndex("AppUserId");
 
                     b.HasIndex("BudgetId");
 
@@ -334,7 +362,6 @@ namespace BudgetApp.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("ProfilePicture")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.HasDiscriminator().HasValue("AppUser");
@@ -370,6 +397,12 @@ namespace BudgetApp.Migrations
 
             modelBuilder.Entity("BudgetApp.Models.Expense", b =>
                 {
+                    b.HasOne("BudgetApp.Models.AppUser", "AppUser")
+                        .WithMany()
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("BudgetApp.Models.BudgetCategory", "BudgetCategory")
                         .WithMany("Expenses")
                         .HasForeignKey("BudgetCategoryId")
@@ -382,6 +415,8 @@ namespace BudgetApp.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("AppUser");
+
                     b.Navigation("Budget");
 
                     b.Navigation("BudgetCategory");
@@ -389,11 +424,17 @@ namespace BudgetApp.Migrations
 
             modelBuilder.Entity("BudgetApp.Models.Income", b =>
                 {
-                    b.HasOne("BudgetApp.Models.Budget", "Budget")
-                        .WithMany("BudgetIncomes")
-                        .HasForeignKey("BudgetId")
+                    b.HasOne("BudgetApp.Models.AppUser", "AppUser")
+                        .WithMany()
+                        .HasForeignKey("AppUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("BudgetApp.Models.Budget", "Budget")
+                        .WithMany("BudgetIncomes")
+                        .HasForeignKey("BudgetId");
+
+                    b.Navigation("AppUser");
 
                     b.Navigation("Budget");
                 });

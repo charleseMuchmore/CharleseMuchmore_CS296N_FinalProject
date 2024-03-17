@@ -78,7 +78,8 @@ namespace BudgetApp
                     {
                         BudgetId = budget.BudgetId,
                         Budget = budget,
-                        IncomeAmount = 1000
+                        IncomeAmount = 1000,
+                        AppUser = user2
                     };
                     context.Incomes.Add(income1);
 
@@ -86,7 +87,8 @@ namespace BudgetApp
                     {
                         BudgetId = budget.BudgetId,
                         Budget = budget,
-                        IncomeAmount = 2400
+                        IncomeAmount = 2400,
+                        AppUser = user2
                     };
                     context.Incomes.Add(income2);
 
@@ -97,7 +99,9 @@ namespace BudgetApp
                         Budget = budget,
                         BudgetCategoryId = bcat1.BudgetCategoryId,
                         BudgetCategory = bcat1, 
-                        ExpenseAmount = 1000
+                        ExpenseAmount = 1000,
+                        AppUser = user2,
+                        ExpenseLocation = "nowhere"
                     };
 
                     Expense expense2 = new()
@@ -106,12 +110,15 @@ namespace BudgetApp
                         Budget = budget,
                         BudgetCategoryId = bcat2.BudgetCategoryId,
                         BudgetCategory = bcat2,
-                        ExpenseAmount = 1500
+                        ExpenseAmount = 1500,
+                        AppUser = user2,
+                        ExpenseLocation = "nowhere"
                     };
                     context.Expenses.Add(expense1);
                     context.Expenses.Add(expense2);
+
+                    context.SaveChanges();
                 }
-                context.SaveChanges();
 
                 //Dominic - fake user
                 AppUser user3 = new AppUser { UserName = "Dominic" };
@@ -153,7 +160,8 @@ namespace BudgetApp
                     {
                         BudgetId = budget.BudgetId,
                         Budget = budget,
-                        IncomeAmount = 3000
+                        IncomeAmount = 3000,
+                        AppUser = user3
                     };
                     context.Incomes.Add(income1);
 
@@ -164,7 +172,9 @@ namespace BudgetApp
                         Budget = budget,
                         BudgetCategoryId = bcat1.BudgetCategoryId,
                         BudgetCategory = bcat1,
-                        ExpenseAmount = 450
+                        ExpenseAmount = 450,
+                        AppUser = user3,
+                        ExpenseLocation = "nowhere"
                     };
                     Expense expense3 = new()
                     {
@@ -172,7 +182,9 @@ namespace BudgetApp
                         Budget = budget,
                         BudgetCategoryId = bcat1.BudgetCategoryId,
                         BudgetCategory = bcat1,
-                        ExpenseAmount = 320
+                        ExpenseAmount = 320,
+                        AppUser = user3,
+                        ExpenseLocation = "nowhere"
                     };
 
                     Expense expense2 = new()
@@ -181,13 +193,17 @@ namespace BudgetApp
                         Budget = budget,
                         BudgetCategoryId = bcat2.BudgetCategoryId,
                         BudgetCategory = bcat2,
-                        ExpenseAmount = 1500
+                        ExpenseAmount = 1500,
+                        AppUser = user3,
+                        ExpenseLocation = "nowhere"
                     };
                     context.Expenses.Add(expense1);
                     context.Expenses.Add(expense2);
                     context.Expenses.Add(expense3);
+
+                    context.SaveChanges();
                 }
-                context.SaveChanges();
+                
 
                 //Jessica - fake user
                 AppUser user4 = new AppUser { UserName = "Jessica" };
@@ -229,14 +245,16 @@ namespace BudgetApp
                     {
                         BudgetId = budget.BudgetId,
                         Budget = budget,
-                        IncomeAmount = 500
+                        IncomeAmount = 500, 
+                        AppUser = user4
                     };
 
                     Income income2 = new()
                     {
                         BudgetId = budget.BudgetId,
                         Budget = budget,
-                        IncomeAmount = 850
+                        IncomeAmount = 850,
+                        AppUser = user4
                     };
                     context.Incomes.Add(income1);
                     context.Incomes.Add(income2);
@@ -248,7 +266,9 @@ namespace BudgetApp
                         Budget = budget,
                         BudgetCategoryId = bcat1.BudgetCategoryId,
                         BudgetCategory = bcat1,
-                        ExpenseAmount = 450
+                        ExpenseAmount = 450,
+                        AppUser = user4,
+                        ExpenseLocation = "nowhere"
                     };
                     Expense expense3 = new()
                     {
@@ -256,7 +276,9 @@ namespace BudgetApp
                         Budget = budget,
                         BudgetCategoryId = bcat1.BudgetCategoryId,
                         BudgetCategory = bcat1,
-                        ExpenseAmount = 320
+                        ExpenseAmount = 320,
+                        AppUser = user4,
+                        ExpenseLocation = "nowhere"
                     };
 
                     Expense expense2 = new()
@@ -265,13 +287,16 @@ namespace BudgetApp
                         Budget = budget,
                         BudgetCategoryId = bcat2.BudgetCategoryId,
                         BudgetCategory = bcat2,
-                        ExpenseAmount = 1500
+                        ExpenseAmount = 1500,
+                        AppUser = user4,
+                        ExpenseLocation = "nowhere"
                     };
                     context.Expenses.Add(expense1);
                     context.Expenses.Add(expense2);
                     context.Expenses.Add(expense3);
+
+                    context.SaveChanges();
                 }
-                context.SaveChanges();
 
                 //Henry - fake user
                 AppUser user5 = new AppUser { UserName = "Henry" };
@@ -313,7 +338,8 @@ namespace BudgetApp
                     {
                         BudgetId = budget.BudgetId,
                         Budget = budget,
-                        IncomeAmount = 2500
+                        IncomeAmount = 2500,
+                        AppUser = user5
                     };
                     context.Incomes.Add(income1);
 
@@ -324,7 +350,9 @@ namespace BudgetApp
                         Budget = budget,
                         BudgetCategoryId = bcat1.BudgetCategoryId,
                         BudgetCategory = bcat1,
-                        ExpenseAmount = 450
+                        ExpenseAmount = 450,
+                        AppUser = user5,
+                        ExpenseLocation = "nowhere"
                     };
                     Expense expense3 = new()
                     {
@@ -332,7 +360,9 @@ namespace BudgetApp
                         Budget = budget,
                         BudgetCategoryId = bcat1.BudgetCategoryId,
                         BudgetCategory = bcat1,
-                        ExpenseAmount = 320
+                        ExpenseAmount = 320,
+                        AppUser = user5,
+                        ExpenseLocation = "nowhere"
                     };
 
                     Expense expense2 = new()
@@ -341,11 +371,15 @@ namespace BudgetApp
                         Budget = budget,
                         BudgetCategoryId = bcat2.BudgetCategoryId,
                         BudgetCategory = bcat2,
-                        ExpenseAmount = 1500
+                        ExpenseAmount = 1500,
+                        AppUser = user5,
+                        ExpenseLocation = "nowhere"
                     };
                     context.Expenses.Add(expense1);
                     context.Expenses.Add(expense2);
                     context.Expenses.Add(expense3);
+
+                    context.SaveChanges();
                 }
 
                 //Charlese - dev

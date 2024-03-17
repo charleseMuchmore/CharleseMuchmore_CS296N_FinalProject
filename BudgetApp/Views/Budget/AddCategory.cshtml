@@ -1,0 +1,21 @@
+﻿@model BudgetCategoryVM
+
+<form method="Post">
+    <label for="planned">Planned Amount:</label><br />
+    <input type="number" id="planned" name="PlannedAmount"/>
+
+    <br />
+
+    <label for="cats">Category</label><br />
+    <select id="cats" name="CategoryName"/>
+    <option> -- </option>
+    @foreach (var cat in Model.Categories)
+    {
+        <option value="@cat.CategoryName">
+            @cat.CategoryName
+        </option>
+    }
+
+    <input hidden type="number" value="@Model.BudgetId" name="budgetId" />
+    <input type="submit" value="AddCategory"/>
+</form>
