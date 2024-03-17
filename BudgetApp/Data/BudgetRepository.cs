@@ -7,11 +7,13 @@ namespace BudgetApp.Data
     public class BudgetRepository : IBudgetRepository
     {
         private AppDbContext dbContext;
+        IBudgetCategoryRepository bcRepository;
         UserManager<AppUser> userManager;
-        public BudgetRepository(AppDbContext dc, UserManager<AppUser> userMngr)
+        public BudgetRepository(AppDbContext dc, UserManager<AppUser> userMngr, IBudgetCategoryRepository bcr)
         {
             userManager = userMngr;
             dbContext = dc;
+            bcRepository = bcr;
         }
         public async Task<Budget> GetBudgetByIdAsync(int id)
         {
@@ -38,6 +40,18 @@ namespace BudgetApp.Data
         public async Task<int> StoreBudgetsAsync(Budget budget)
         {
             await dbContext.Budgets.AddAsync(budget);
+            return dbContext.SaveChanges();
+        }
+
+        public async Task<int> DeleteBudgetAsync(int id)
+        {
+            var b = await GetBudgetByIdAsync(id);
+            foreach (var c in b.BudgetCategories)
+            {
+                await bcRepository.DeleteBudgetCategoryAsync(c.BudgetCategoryId);
+            }
+            dbContext.Budgets.Remove(b);
+
             return dbContext.SaveChanges();
         }
     }

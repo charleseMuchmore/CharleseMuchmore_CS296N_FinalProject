@@ -1,0 +1,8 @@
+﻿@model DeleteBudgetVM
+
+<form method="Post">
+    <label for="confirm">Do you really want to delete <span>@Model.BudgetName</span></label>
+    <input hidden value="@Model.BudgetId" name="BudgetId" />
+    <input hidden value="@Model.BudgetCategories" name="BudgetCategories" />
+    <input id="confirm" type="submit" value="Yes" />
+</form>

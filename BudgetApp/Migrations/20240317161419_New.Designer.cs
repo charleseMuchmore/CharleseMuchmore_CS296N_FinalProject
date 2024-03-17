@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BudgetApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240316200150_New")]
+    [Migration("20240317161419_New")]
     partial class New
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

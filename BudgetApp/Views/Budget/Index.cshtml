@@ -4,6 +4,7 @@
 }
 
 <h1>Your Budgets:</h1>
+<a class="btn" href="Budget/AddBudget">New Budget</a>
 
 <div>
     @foreach (var budget in Model)
@@ -24,6 +25,8 @@
                 <div>Total Spent: @budget.ExpenseTotal</div>
              </p>
                 <a class="btn btn-primary" href="Budget/Budget?budgetId=@budget.BudgetID">View Budget</a>
+                <hr />
+                <a class="btn btn-primary" href="Budget/DeleteBudget?budgetId=@budget.BudgetID">Delete Budget</a>
             </div>
         </div>
     }

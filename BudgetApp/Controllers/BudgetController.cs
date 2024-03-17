@@ -111,5 +111,55 @@ namespace BudgetApp.Controllers
             await bcRepository.DeleteBudgetCategoryAsync(model.BudgetCategoryId);
             return RedirectToAction("Budget", new { budgetId = model.BudgetId });
         }
+
+        [HttpGet]
+        [Authorize]
+        public IActionResult AddBudget()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> AddBudget(Budget model)
+        {
+            var user = await userManager.GetUserAsync(User);
+            model.AppUser = user;
+            model.BudgetExpenses = new List<Expense>();
+            model.BudgetCategories = new List<BudgetCategory>();
+            model.BudgetIncomes = new List<Income>();
+
+            await budgetRepository.StoreBudgetsAsync(model);
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> DeleteBudget(int budgetId)
+        {
+            var model = new DeleteBudgetVM();
+            model.BudgetId = budgetId;
+            var budget = await budgetRepository.GetBudgetByIdAsync(budgetId);
+
+            if (budget.BudgetName == null)
+            {
+                model.BudgetName = "Budget #" + budget.BudgetId;
+            } else
+            {
+                model.BudgetName = budget.BudgetName;
+            }
+
+            model.BudgetCategories = budget.BudgetCategories;
+            return View(model);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> DeleteBudget(DeleteBudgetVM model)
+        {
+            await budgetRepository.DeleteBudgetAsync(model.BudgetId);
+            return RedirectToAction("Index");
+        }
     }
 }
