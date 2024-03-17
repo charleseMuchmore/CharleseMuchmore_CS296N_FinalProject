@@ -1,6 +1,7 @@
 ﻿@model IncomeVM
 
 <form method="Post">
+    <div asp-validation-summary="All" class="text-danger"></div>
     <input hidden type="number" value="@Model.BudgetId"/>
 
     <label for="amount">Income Amount</label>

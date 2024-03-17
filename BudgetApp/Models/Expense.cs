@@ -1,4 +1,6 @@
-﻿namespace BudgetApp.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace BudgetApp.Models
 {
     public class Expense
     {
@@ -14,8 +16,11 @@
         public BudgetCategory BudgetCategory { get; set; }
 
         public DateOnly ExpenseDate { get; set; }
+
+        [Required(ErrorMessage = "There must be an Expense Amount")]
         public int ExpenseAmount { get; set; }
 
+        [StringLength(150)]
         public string ExpenseLocation { get; set; }
     }
 }
