@@ -1,46 +1,37 @@
 ﻿@model BudgetCategory
+<a class="btn btn-primary" href="Budget?budgetId=@Model.BudgetId">Back to Budget</a>
 
 <div class="card" style="width: 28rem;">
     <h5 class="card-title">
         <span>@Model.Category.CategoryName  </span>
         <span>  @((Model.Planned) - (Model.ExpenseTotal))</span><span> / @Model.Planned</span>
     </h5>
-    <div class="card-body">
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    Planned
-                </div>
-                <div class="col">
-                    Spent
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <span>@Model.Planned</span>
-                </div>
-                <div class="col">
-                    <span>@Model.ExpenseTotal</span>
-                </div>
-                <div><br />
-                    Expenses:
-                    <hr />
-                    <span>
-                        @foreach (var e in Model.Expenses)
-                        {
-                            <div>
-                                <span>@e.ExpenseDate</span><br />
-                                <span>$@e.ExpenseAmount</span>
-                                <span> at @e.ExpenseLocation</span>
-                            </div>
-                            <hr />
-                        }
-                    </span>
-                </div>
-            </div>
-        </div>
-@*         <a class="btn btn-primary" href="BudgetCategory?bcatId=@cat.BudgetCategoryId&budgetId=@Model.BudgetID">View</a>
+    <div class="card-body container">
+        Expenses:
         <hr />
-        <a class="btn btn-primary" href="DeleteBudgetCategory?bcatId=@cat.BudgetCategoryId&budgetId=@Model.BudgetID">Delete Category</a> *@
+        <div class="row">
+            @foreach (var e in Model.Expenses)
+            {
+                <div class="col">
+                    <div class="row">
+                        @e.ExpenseDate
+                    </div>
+                    <div class="row">
+                        $@e.ExpenseAmount
+                    </div>
+                    <div class="row">
+                        at @e.ExpenseLocation
+                    </div>
+                </div>
+                <div class="col">
+                    <a class="btn btn-primary" href="../Expense/Expense?expenseId=@e.ExpenseId">View</a>
+                </div>
+                <div class="col"></div>
+                <div class="col">
+                    <a class="btn btn-primary" href="../Expense/DeleteExpense?expenseId=@e.ExpenseId">Delete</a>
+                </div>
+            }
+        </div>
+        <hr />
     </div>
 </div>

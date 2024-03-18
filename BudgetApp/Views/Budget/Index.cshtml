@@ -20,7 +20,11 @@
                 }</h5>
             <div class="card-body">
              <p class="card-text">
-                <div>@budget.StartDate -@budget.EndDate</div>
+@*                 <div><span>@budget.StartDate</span>-<span>@budget.EndDate</span></div>
+ *@                    @if (budget.ExpenseTotal > budget.IncomeTotal)
+                    {
+                        <div class="text-danger">You are over budget!</div>
+                    }
                 <div>Total Income: @budget.IncomeTotal</div>
                 <div>Total Spent: @budget.ExpenseTotal</div>
              </p>

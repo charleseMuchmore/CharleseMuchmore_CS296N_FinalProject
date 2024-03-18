@@ -44,6 +44,12 @@ namespace BudgetApp.Data
             return dbContext.SaveChanges();
         }
 
+        public int UpdateBudgetCategoriesAsync(BudgetCategory budget)
+        {
+            dbContext.BudgetCategories.Update(budget);
+            return dbContext.SaveChanges();
+        }
+
         public async Task<int> DeleteBudgetCategoryAsync(int id)
         {
             var bc = await GetBudgetCategoryByIdAsync(id);

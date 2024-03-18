@@ -82,7 +82,10 @@ namespace BudgetApp.Controllers
 
             await incomeRepository.StoreIncomesAsync(income);
 
-            return RedirectToAction("Index");
+            if (model.BudgetId == 0 || model.BudgetId == null)
+                return RedirectToAction("Index");
+            else
+                return RedirectToAction("Budget", "Budget", new { budgetId = income.BudgetId });
         }
 
         [HttpGet]

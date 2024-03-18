@@ -7,35 +7,75 @@
 <a href="../Income/AddIncome?budgetId=@Model.BudgetID" class="btn btn-primary">Add Income</a>
 <a href="../Expense/AddExpense?budgetId=@Model.BudgetID" class="btn btn-primary">Add Expense</a>
 
+<br />
+<div>Total Income: <span>@Model.IncomeTotal</span></div> <br />
+<div>Total Expenses: <span>@Model.ExpenseTotal</span></div>
+@if (Model.PlannedTotal > Model.IncomeTotal)
+{
+    <div>@Model.PlannedTotal <span>Planned</span></div>
+    <div>@Model.IncomeTotal <span>Available</span></div>
+    <div class="text-danger">You have planned to spend more than you have!</div>
+}
+@* 
 @foreach (var cat in Model.BudgetCategories)
 {
     <div class="card" style="width: 28rem;">
         <h5 class="card-title">
             <span>@cat.Category.CategoryName  </span>
-            <span>  @((cat.Planned) - (cat.ExpenseTotal))</span><span> / @cat.Planned</span>
+            
+            @if (cat.ExpenseTotal > cat.Planned)
+            {
+                <div class="text-danger"><span>  @cat.ExpenseTotal</span><span> / @cat.Planned</span>!!!!!</div>
+            }
+            else if (cat.ExpenseTotal == cat.Planned)
+            {
+                <div class="text-success"><span>  @cat.ExpenseTotal</span><span> / @cat.Planned</span></div>
+            } else
+            {
+                <div><span>  @cat.ExpenseTotal</span><span> / @cat.Planned</span></div>
+            }
         </h5>
         <div class="card-body">
-            <div class="container">
-                <div class="row">
-                    <div class="col">
-                        Planned
-                    </div>
-                    <div class="col">
-                        Spent
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <span>@cat.Planned</span>
-                    </div>
-                    <div class="col">
-                        <span>@cat.ExpenseTotal</span>
-                    </div>
-                </div>
-            </div>
             <a class="btn btn-primary" href="BudgetCategory?bcatId=@cat.BudgetCategoryId&budgetId=@Model.BudgetID">View</a>
             <hr />
             <a class="btn btn-primary" href="DeleteBudgetCategory?bcatId=@cat.BudgetCategoryId&budgetId=@Model.BudgetID">Delete Category</a>
+        </div>
+    </div>
+} *@
+
+@foreach (var cat in Model.BudgetCategories)
+{
+    <div class="card" style="width: 28rem;">
+        <div class="card-title">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <span>@cat.Category.CategoryName  </span>
+
+                        @if (cat.ExpenseTotal > cat.Planned)
+                        {
+                            <div class="text-danger"><span>  @cat.ExpenseTotal</span><span> / @cat.Planned</span>!!!!!</div>
+                        }
+                        else if (cat.ExpenseTotal == cat.Planned)
+                        {
+                            <div class="text-success"><span>  @cat.ExpenseTotal</span><span> / @cat.Planned</span></div>
+                        }
+                        else
+                        {
+                            <div><span>  @cat.ExpenseTotal</span><span> / @cat.Planned</span></div>
+                        }
+                    </div>
+                    <div class="col">
+                        <a class="btn btn-primary" href="BudgetCategory?bcatId=@cat.BudgetCategoryId&budgetId=@Model.BudgetID">View</a>
+                    </div>
+                    <div class="col">
+                        <a class="btn btn-primary" href="EditBudgetCategory?bcatId=@cat.BudgetCategoryId&budgetId=@Model.BudgetID">Edit</a>
+                    </div>
+                    <div class="col">
+                        <a class="btn btn-primary" href="DeleteBudgetCategory?bcatId=@cat.BudgetCategoryId&budgetId=@Model.BudgetID">Delete</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 }

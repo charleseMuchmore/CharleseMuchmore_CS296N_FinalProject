@@ -1,4 +1,8 @@
 ﻿@model Income
+@if (Model.BudgetId != null && Model.BudgetId != 0)
+{
+    <a class="btn btn-primary" href="../Budget/Budget?budgetId=@Model.BudgetId">Back to Budget</a>
+}
 
 <div class="card" style="width: 18rem;">
     <h5 class="card-title">

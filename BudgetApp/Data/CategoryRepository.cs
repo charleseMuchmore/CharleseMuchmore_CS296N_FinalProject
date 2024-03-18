@@ -19,9 +19,9 @@ namespace BudgetApp.Data
             return dbContext.Categories.ToList<Category>();
         }
 
-        public Task<Category> GetCategoryByIdAsync(int id)
+        public async Task<Category> GetCategoryByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await dbContext.Categories.FindAsync(id);
         }
 
         public Task<int> StoreCategoriesAsync(Category category)

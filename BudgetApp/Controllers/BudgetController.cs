@@ -48,6 +48,7 @@ namespace BudgetApp.Controllers
                 model = VMConverter.ToBudgetVM(b);
                 foreach (var bcat in model.BudgetCategories)
                 {
+                    model.PlannedTotal += bcat.Planned;
                     foreach (var e in bcat.Expenses)
                     {
                         bcat.ExpenseTotal += e.ExpenseAmount;
@@ -114,22 +115,65 @@ namespace BudgetApp.Controllers
 
         [HttpGet]
         [Authorize]
-        public IActionResult AddBudget()
+        public async Task<IActionResult> EditBudgetCategory(int budgetId, int bcatId)
         {
-            return View();
+            EditBudgetCategoryVM model = new EditBudgetCategoryVM();   
+            var budget = await budgetRepository.GetBudgetByIdAsync(budgetId);
+            var bcat = await bcRepository.GetBudgetCategoryByIdAsync(bcatId);
+
+            model.BudgetCategoryId = bcatId;
+            model.BudgetId = budgetId;
+            model.Budget = budget;
+            model.Category = bcat.Category;
+            model.CategoryId = bcat.Category.CategoryId;
+            model.Expenses = bcat.Expenses;
+            model.ExpenseTotal = bcat.ExpenseTotal;
+            model.Planned = bcat.Planned;
+            List<Category> bcats = categoryRepository.GetCategories()
+                .ToList();
+            model.Categories = bcats;
+
+            return View(model);
         }
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> AddBudget(Budget model)
+        public async Task<IActionResult> EditBudgetCategory(EditBudgetCategoryVM model)
         {
-            var user = await userManager.GetUserAsync(User);
-            model.AppUser = user;
-            model.BudgetExpenses = new List<Expense>();
-            model.BudgetCategories = new List<BudgetCategory>();
-            model.BudgetIncomes = new List<Income>();
+            //converting the model to a valid budget
+            BudgetCategory budgetCategory = await bcRepository.GetBudgetCategoryByIdAsync(model.BudgetCategoryId);
+            budgetCategory.Planned = model.Planned;
+            budgetCategory.Category = await categoryRepository.GetCategoryByIdAsync(model.CategoryId);
 
-            await budgetRepository.StoreBudgetsAsync(model);
+            bcRepository.UpdateBudgetCategoriesAsync(budgetCategory);
+            return RedirectToAction("Budget", new {budgetId = model.BudgetId});
+        }
+
+        [HttpGet]
+        [Authorize]
+        public IActionResult AddBudget()
+        {
+            var model = new BudgetVM();
+            return View(model);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> AddBudget(BudgetVM model)
+        {
+            var budget = new Budget();
+            var user = await userManager.GetUserAsync(User);
+            budget.AppUser = user;
+            //all empty right now
+            budget.BudgetExpenses = new List<Expense>();
+            budget.BudgetCategories = new List<BudgetCategory>();
+            budget.BudgetIncomes = new List<Income>();
+
+            budget.BudgetName = model.BudgetName;
+            budget.StartDate = DateOnly.Parse(model.StartDate);
+            budget.EndDate = DateOnly.Parse(model.EndDate);
+
+            await budgetRepository.StoreBudgetsAsync(budget);
 
             return RedirectToAction("Index");
         }
