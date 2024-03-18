@@ -10,5 +10,18 @@
     <label for="source">Expense Location</label>
     <input id="source" type="text" name="ExpenseLocation" />
 
+    @if (Model.BudgetCategories.Count > 0)
+    {
+        <label for="cats">Category</label>
+        <select id="cats" name="SelectedBudgetCategory" />
+        <option> -- </option>
+        @foreach (var cat in Model.BudgetCategories)
+        {
+            <option value="@cat.Category.CategoryName">
+                @cat.Category.CategoryName
+            </option>
+        }
+    }
+
     <input type="Submit" value="Submit" />
 </form>

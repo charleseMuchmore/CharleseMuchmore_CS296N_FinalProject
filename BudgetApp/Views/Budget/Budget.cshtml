@@ -4,6 +4,8 @@
 }
 
 <a href="AddCategory?budgetId=@Model.BudgetID" class="btn btn-primary">Add Category</a>
+<a href="../Income/AddIncome?budgetId=@Model.BudgetID" class="btn btn-primary">Add Income</a>
+<a href="../Expense/AddExpense?budgetId=@Model.BudgetID" class="btn btn-primary">Add Expense</a>
 
 @foreach (var cat in Model.BudgetCategories)
 {

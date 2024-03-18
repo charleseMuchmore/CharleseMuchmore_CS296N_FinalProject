@@ -48,14 +48,19 @@ namespace BudgetApp.Controllers
             {
                 model.BudgetId = (int)budgetId;
                 var bcs = budgetCategoryRepository.GetBudgetCategories().Where(a => a.BudgetId == budgetId).ToList();
-                foreach (var c in bcs)
+                if (bcs.Count > 0)
                 {
-                    model.BudgetCategoryIds.Add(c.BudgetCategoryId);
+                    model.BudgetCategories = new List<BudgetCategory>();
+                    foreach (var c in bcs)
+                    {
+                        model.BudgetCategories.Add(c);
+                    }
                 }
+                
             }
             else
             {
-                model.BudgetId = 0;
+                model.BudgetId = null;
             }
             return View(model);
         }
@@ -66,10 +71,10 @@ namespace BudgetApp.Controllers
         {
             var expense = new Expense();
 
-            if (model.BudgetId != 0 && model.BudgetId != null)
+            if (model.BudgetId != 0 || model.BudgetId != null)
             {
                 expense.BudgetId = model.BudgetId;
-                expense.Budget = await budgetRepository.GetBudgetByIdAsync(model.BudgetId);
+                expense.Budget = await budgetRepository.GetBudgetByIdAsync((int)model.BudgetId);
             }
             else
             {

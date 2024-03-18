@@ -15,7 +15,10 @@ namespace BudgetApp.Data
         }
         public List<BudgetCategory> GetBudgetCategories()
         {
-            throw new NotImplementedException();
+            return dbContext.BudgetCategories
+                .Include(b => b.Budget)
+                .Include(e => e.Category)
+                .ToList<BudgetCategory>();
         }
 
         public async Task<BudgetCategory> GetBudgetCategoryByIdAsync(int id)
