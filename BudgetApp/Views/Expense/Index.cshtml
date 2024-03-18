@@ -3,7 +3,7 @@
     ViewData["Title"] = "Expense Page";
 }
 
-<a class="btn btn-primary" href="Expense/AddExpense">New Expense</a>
+<a class="btn btn-primary" href="Expense/AddExpense">Add</a>
 
 @foreach (var expense in Model)
 {
@@ -16,9 +16,9 @@
                 <div>@expense.ExpenseDate</div>
                 <div>@expense.ExpenseLocation</div>
             </p>
-            <a class="btn btn-primary" href="Expense/Expense?expenseId=@expense.ExpenseId">View Expense</a>
+            <a class="btn btn-primary" href="Expense/Expense?expenseId=@expense.ExpenseId">View</a>
             <hr />
-            <a class="btn btn-primary" href="Expense/DeleteExpense?expenseId=@expense.ExpenseId">Delete Expense</a>
+            <a class="btn btn-primary" href="Expense/DeleteExpense?expenseId=@expense.ExpenseId">Delete</a>
         </div>
     </div>
 }

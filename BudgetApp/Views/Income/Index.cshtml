@@ -3,7 +3,7 @@
     ViewData["Title"] = "Income Page";
 }
 
-<a class="btn btn-primary" href="Income/AddIncome">New Income</a>
+<a class="btn btn-primary" href="Income/AddIncome">Add</a>
 
 @foreach (var income in Model)
 {
@@ -16,9 +16,9 @@
                 <div>@income.IncomeDate</div>
                 <div>@income.IncomeSource</div>
             </p>
-            <a class="btn btn-primary" href="Income/Income?incomeId=@income.IncomeId">View Income</a>
+            <a class="btn btn-primary" href="Income/Income?incomeId=@income.IncomeId">View</a>
             <hr />
-            <a class="btn btn-primary" href="Income/DeleteIncome?incomeId=@income.IncomeId">Delete Income</a>
+            <a class="btn btn-primary" href="Income/DeleteIncome?incomeId=@income.IncomeId">Delete</a>
         </div>
     </div>
 }

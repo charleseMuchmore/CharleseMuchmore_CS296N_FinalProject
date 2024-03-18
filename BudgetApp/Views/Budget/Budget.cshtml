@@ -3,6 +3,8 @@
     ViewData["Title"] = "Budget Page";
 }
 
+<a href="AddCategory?budgetId=@Model.BudgetID" class="btn btn-primary">Add Category</a>
+
 @foreach (var cat in Model.BudgetCategories)
 {
     <div class="card" style="width: 28rem;">
@@ -33,6 +35,3 @@
         </div>
     </div>
 }
-
-
-<a href="AddCategory?budgetId=@Model.BudgetID" class="btn btn-primary">Add Category</a>

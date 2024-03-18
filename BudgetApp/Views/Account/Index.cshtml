@@ -7,13 +7,13 @@
 <div class="container">
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title">Hi @Model.UserName !</h5>
+            <h5 class="card-title">Hi @Model.Name !</h5>
 
             <!-- Nested Child Card -->
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Profile Picture</h5>
-                    <img src="/img/@Model.ProfilePicture" alt="imgNotFound" class="pfp-big" /><br />
+                    <img src="@Model.ProfilePicture" alt="imgNotFound" class="pfp-big" /><br />
                     <a asp-action="Upload">Upload a file</a><br />
                 </div>
             </div>
