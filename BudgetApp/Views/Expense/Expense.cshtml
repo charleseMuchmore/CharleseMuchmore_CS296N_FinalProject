@@ -1,1 +1,16 @@
-﻿Expense View
+﻿@model Expense
+
+<div class="card" style="width: 18rem;">
+    <h5 class="card-title">
+        @Model.ExpenseAmount
+    </h5>
+    <div class="card-body">
+        <p class="card-text">
+            <div>Received: @Model.ExpenseDate</div>
+            <div>From: @Model.ExpenseLocation</div> <!--Maybe put what budget it is a part of-->
+        </p>
+        <a class="btn btn-primary" href="Expense/Expense?expenseId=@Model.ExpenseId">View Expense</a>
+        <hr />
+        <a class="btn btn-primary" href="Expense/DeleteExpense?expenseId=@Model.ExpenseId">Delete Expense</a>
+    </div>
+</div>

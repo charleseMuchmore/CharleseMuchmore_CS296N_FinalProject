@@ -20,7 +20,12 @@ namespace BudgetApp.Data
 
         public Task<Expense> GetExpenseByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return dbContext.Expenses
+                .Where(e => e.ExpenseId == id)
+                .Include(a => a.AppUser)
+                .Include(a => a.Budget)
+                .Include(a => a.BudgetCategory)
+                .FirstOrDefaultAsync();
         }
 
         public List<Expense> GetExpenses()
@@ -28,9 +33,10 @@ namespace BudgetApp.Data
             return dbContext.Expenses.ToList<Expense>();
         }
 
-        public Task<int> StoreExpensesAsync(Expense expense)
+        public async Task<int> StoreExpensesAsync(Expense expense)
         {
-            throw new NotImplementedException();
+            await dbContext.Expenses.AddAsync(expense);
+            return dbContext.SaveChanges();
         }
     }
 }

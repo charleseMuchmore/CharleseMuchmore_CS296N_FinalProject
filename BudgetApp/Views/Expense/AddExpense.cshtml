@@ -1,1 +1,14 @@
-﻿Add Expnese
+﻿@model ExpenseVM
+
+<form method="Post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <input hidden type="number" value="@Model.BudgetId" />
+
+    <label for="amount">Expense Amount</label>
+    <input id="amount" type="number" name="ExpenseAmount" />
+
+    <label for="source">Expense Location</label>
+    <input id="source" type="text" name="ExpenseLocation" />
+
+    <input type="Submit" value="Submit" />
+</form>

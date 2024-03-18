@@ -9,6 +9,7 @@ namespace BudgetApp.Controllers
     public class ExpenseController : Controller
     {
         IBudgetRepository budgetRepository;
+        IBudgetCategoryRepository budgetCategoryRepository;
         IExpenseRepository expenseRepository;
         UserManager<AppUser> userManager;
         public ExpenseController(UserManager<AppUser> userMngr, IBudgetRepository br, IIncomeRepository ir, IBudgetCategoryRepository bcr, IExpenseRepository er)
@@ -16,6 +17,7 @@ namespace BudgetApp.Controllers
             userManager = userMngr;
             budgetRepository = br;
             expenseRepository = er;
+            budgetCategoryRepository = bcr;
         }
         [HttpGet]
         [Authorize]
@@ -31,15 +33,64 @@ namespace BudgetApp.Controllers
         }
         [HttpGet]
         [Authorize]
-        public IActionResult Expense()
+        public async Task<IActionResult> Expense(int expenseId)
         {
-            return View();
+            var expense = await expenseRepository.GetExpenseByIdAsync(expenseId);
+            return View(expense);
         }
         [HttpGet]
         [Authorize]
-        public IActionResult AddExpense()
+        public IActionResult AddExpense(int? budgetId = null)
         {
-            return View();
+            var model = new ExpenseVM();
+            
+            if (budgetId != null)
+            {
+                model.BudgetId = (int)budgetId;
+                var bcs = budgetCategoryRepository.GetBudgetCategories().Where(a => a.BudgetId == budgetId).ToList();
+                foreach (var c in bcs)
+                {
+                    model.BudgetCategoryIds.Add(c.BudgetCategoryId);
+                }
+            }
+            else
+            {
+                model.BudgetId = 0;
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> AddExpense(ExpenseVM model)
+        {
+            var expense = new Expense();
+
+            if (model.BudgetId != 0 && model.BudgetId != null)
+            {
+                expense.BudgetId = model.BudgetId;
+                expense.Budget = await budgetRepository.GetBudgetByIdAsync(model.BudgetId);
+            }
+            else
+            {
+                expense.BudgetId = null;
+            }
+
+            var user = await userManager.GetUserAsync(User);
+            expense.AppUser = user;
+
+            //TODO: implement BudgetCategory connection
+
+            var datetime = DateTime.Now;
+            expense.ExpenseDate = DateOnly.FromDateTime(datetime);
+
+            expense.ExpenseAmount = model.ExpenseAmount;
+
+            expense.ExpenseLocation = model.ExpenseLocation;
+
+            await expenseRepository.StoreExpensesAsync(expense);
+
+            return RedirectToAction("Index");
         }
         [HttpGet]
         [Authorize]
