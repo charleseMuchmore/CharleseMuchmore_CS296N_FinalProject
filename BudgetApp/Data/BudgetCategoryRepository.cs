@@ -15,7 +15,10 @@ namespace BudgetApp.Data
         }
         public List<BudgetCategory> GetBudgetCategories()
         {
-            throw new NotImplementedException();
+            return dbContext.BudgetCategories
+                .Include(b => b.Budget)
+                .Include(e => e.Category)
+                .ToList<BudgetCategory>();
         }
 
         public async Task<BudgetCategory> GetBudgetCategoryByIdAsync(int id)
@@ -38,6 +41,12 @@ namespace BudgetApp.Data
         public async Task<int> StoreBudgetCategoriesAsync(BudgetCategory budget)
         {
             await dbContext.BudgetCategories.AddAsync(budget);
+            return dbContext.SaveChanges();
+        }
+
+        public int UpdateBudgetCategoriesAsync(BudgetCategory budget)
+        {
+            dbContext.BudgetCategories.Update(budget);
             return dbContext.SaveChanges();
         }
 

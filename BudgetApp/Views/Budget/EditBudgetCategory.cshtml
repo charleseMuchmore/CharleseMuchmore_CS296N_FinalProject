@@ -1,0 +1,22 @@
+﻿@model EditBudgetCategoryVM
+
+<form method="Post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <label for="planned">Planned Amount:</label><br />
+    <input type="number" id="planned" name="Planned" value="@Model.Planned"/>
+
+    <br />
+
+    <label for="cats">Category</label><br />
+    <select id="cats" name="CategoryId"/>
+    <option value="@Model.Category.CategoryId"> @Model.Category.CategoryName </option>
+    @foreach (var cat in Model.Categories)
+    {
+        <option value="@cat.CategoryId">
+            @cat.CategoryName
+        </option>
+    }
+    <input hidden type="number" value="@Model.BudgetId" name="budgetId" />
+    <input hidden type="number" value="@Model.BudgetCategoryId" name="budgetCategoryId" />
+    <input type="submit" value="EditCategory" />
+</form>

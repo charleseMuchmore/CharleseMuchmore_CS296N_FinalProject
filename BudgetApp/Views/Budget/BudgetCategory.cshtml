@@ -1,0 +1,37 @@
+﻿@model BudgetCategory
+<a class="btn btn-primary" href="Budget?budgetId=@Model.BudgetId">Back to Budget</a>
+
+<div class="card" style="width: 28rem;">
+    <h5 class="card-title">
+        <span>@Model.Category.CategoryName  </span>
+        <span>  @((Model.Planned) - (Model.ExpenseTotal))</span><span> / @Model.Planned</span>
+    </h5>
+    <div class="card-body container">
+        Expenses:
+        <hr />
+        <div class="row">
+            @foreach (var e in Model.Expenses)
+            {
+                <div class="col">
+                    <div class="row">
+                        @e.ExpenseDate
+                    </div>
+                    <div class="row">
+                        $@e.ExpenseAmount
+                    </div>
+                    <div class="row">
+                        at @e.ExpenseLocation
+                    </div>
+                </div>
+                <div class="col">
+                    <a class="btn btn-primary" href="../Expense/Expense?expenseId=@e.ExpenseId">View</a>
+                </div>
+                <div class="col"></div>
+                <div class="col">
+                    <a class="btn btn-primary" href="../Expense/DeleteExpense?expenseId=@e.ExpenseId">Delete</a>
+                </div>
+            }
+        </div>
+        <hr />
+    </div>
+</div>

@@ -1,1 +1,16 @@
-﻿Expense View
+﻿@model Expense
+@if (Model.BudgetId != null && Model.BudgetId != 0)
+{
+    <a class="btn btn-primary" href="../Budget/Budget?budgetId=@Model.BudgetId">Back to Budget</a>
+}
+<div class="card" style="width: 18rem;">
+    <h5 class="card-title">
+        @Model.ExpenseAmount
+    </h5>
+    <div class="card-body">
+        <p class="card-text">
+            <div>Received: @Model.ExpenseDate</div>
+            <div>From: @Model.ExpenseLocation</div> <!--Maybe put what budget it is a part of-->
+        </p>
+    </div>
+</div>

@@ -9,8 +9,8 @@ namespace BudgetApp
             BudgetVM bvm = new BudgetVM();
             bvm.BudgetID = b.BudgetId;
             bvm.BudgetName = b.BudgetName;
-            bvm.StartDate = b.StartDate;
-            bvm.EndDate = b.EndDate;
+/*            bvm.StartDate = DateOnly.ParseExact(b.StartDate, );
+            bvm.EndDate = b.EndDate;*/
             bvm.BudgetExpenses = b.BudgetExpenses;
             bvm.BudgetCategories = b.BudgetCategories;
             bvm.BudgetIncomes = b.BudgetIncomes;

@@ -50,7 +50,7 @@ namespace BudgetApp.Controllers
                 model.BudgetId = (int)budgetId;
             } else
             {
-                model.BudgetId = 0;
+                model.BudgetId = null;
             }
             return View(model);
         }
@@ -69,10 +69,10 @@ namespace BudgetApp.Controllers
             var user = await userManager.GetUserAsync(User);
             income.AppUser = user;
 
-            if (model.BudgetId != 0)
+            if (model.BudgetId != 0 || model.BudgetId != null)
             {
                 income.BudgetId = model.BudgetId;
-                var b = await budgetRepository.GetBudgetByIdAsync(model.BudgetId);
+                var b = await budgetRepository.GetBudgetByIdAsync((int)model.BudgetId);
                 income.Budget = b;
             } else
             {
@@ -82,7 +82,10 @@ namespace BudgetApp.Controllers
 
             await incomeRepository.StoreIncomesAsync(income);
 
-            return RedirectToAction("Index");
+            if (model.BudgetId == 0 || model.BudgetId == null)
+                return RedirectToAction("Index");
+            else
+                return RedirectToAction("Budget", "Budget", new { budgetId = income.BudgetId });
         }
 
         [HttpGet]

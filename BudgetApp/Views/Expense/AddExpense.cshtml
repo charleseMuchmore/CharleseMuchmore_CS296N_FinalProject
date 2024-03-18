@@ -1,1 +1,27 @@
-﻿Add Expnese
+﻿@model ExpenseVM
+
+<form method="Post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <input hidden type="number" value="@Model.BudgetId" />
+
+    <label for="amount">Expense Amount</label>
+    <input id="amount" type="number" name="ExpenseAmount" />
+
+    <label for="source">Expense Location</label>
+    <input id="source" type="text" name="ExpenseLocation" />
+
+    @if (Model.BudgetCategories.Count > 0)
+    {
+        <label for="cats">Category</label>
+        <select id="cats" name="SelectedBudgetCategoryId" />
+        <option> -- </option>
+        @foreach (var cat in Model.BudgetCategories)
+        {
+            <option value="@cat.BudgetCategoryId" name="SelectedBudgetCategoryId">
+                @cat.Category.CategoryName
+            </option>
+        }
+    }
+
+    <input type="Submit" value="Submit" />
+</form>

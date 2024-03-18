@@ -8,10 +8,10 @@ namespace BudgetApp.Models
         public string? BudgetName { get; set; }
 
         [Required(ErrorMessage = "There must be a Starting Date")]
-        public DateOnly StartDate { get; set; }
+        public string StartDate { get; set; }
 
         [Required(ErrorMessage = "There must be an Ending Date")]
-        public DateOnly EndDate { get; set; }
+        public string EndDate { get; set; }
 
         public ICollection<Expense> BudgetExpenses { get; set; }
 
@@ -22,5 +22,7 @@ namespace BudgetApp.Models
         public int ExpenseTotal { get; set; }
 
         public int IncomeTotal { get; set;}
+
+        public int PlannedTotal {  get; set; }
     }
 }

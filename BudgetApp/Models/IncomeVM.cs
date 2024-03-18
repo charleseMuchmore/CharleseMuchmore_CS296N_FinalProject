@@ -6,7 +6,7 @@ namespace BudgetApp.Models
     {
         public int IncomeId { get; set; }
 
-        public int BudgetId { get; set; }
+        public int? BudgetId { get; set; }
 
         [Required(ErrorMessage = "There must be an Income Amount")]
         public int IncomeAmount { get; set; }

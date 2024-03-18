@@ -1,4 +1,8 @@
 ﻿@model Income
+@if (Model.BudgetId != null && Model.BudgetId != 0)
+{
+    <a class="btn btn-primary" href="../Budget/Budget?budgetId=@Model.BudgetId">Back to Budget</a>
+}
 
 <div class="card" style="width: 18rem;">
     <h5 class="card-title">
@@ -9,8 +13,5 @@
             <div>Received: @Model.IncomeDate</div>
             <div>From: @Model.IncomeSource</div> <!--Maybe put what budget it is a part of-->
         </p>
-        <a class="btn btn-primary" href="Income/Income?incomeId=@Model.IncomeId">View Budget</a>
-        <hr />
-        <a class="btn btn-primary" href="Income/DeleteIncome?incomeId=@Model.IncomeId">Delete Budget</a>
     </div>
 </div>
