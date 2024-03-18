@@ -18,5 +18,9 @@ namespace BudgetApp.Models
         public ICollection<Expense> Expenses { get; set; } = new List<Expense>();
 
         public int ExpenseTotal { get; set; } = 0;
+
+        public List<Category> Categories { get; set; }
+
+        public int CategoryId { get; set; }
     }
 }

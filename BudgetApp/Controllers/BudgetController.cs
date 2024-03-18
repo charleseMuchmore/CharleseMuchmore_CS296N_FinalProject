@@ -117,14 +117,36 @@ namespace BudgetApp.Controllers
         [Authorize]
         public async Task<IActionResult> EditBudgetCategory(int budgetId, int bcatId)
         {
-            return View();
+            EditBudgetCategoryVM model = new EditBudgetCategoryVM();   
+            var budget = await budgetRepository.GetBudgetByIdAsync(budgetId);
+            var bcat = await bcRepository.GetBudgetCategoryByIdAsync(bcatId);
+
+            model.BudgetCategoryId = bcatId;
+            model.BudgetId = budgetId;
+            model.Budget = budget;
+            model.Category = bcat.Category;
+            model.CategoryId = bcat.Category.CategoryId;
+            model.Expenses = bcat.Expenses;
+            model.ExpenseTotal = bcat.ExpenseTotal;
+            model.Planned = bcat.Planned;
+            List<Category> bcats = categoryRepository.GetCategories()
+                .ToList();
+            model.Categories = bcats;
+
+            return View(model);
         }
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> EditBudgetCategory(int id)
+        public async Task<IActionResult> EditBudgetCategory(EditBudgetCategoryVM model)
         {
-            return View();
+            //converting the model to a valid budget
+            BudgetCategory budgetCategory = await bcRepository.GetBudgetCategoryByIdAsync(model.BudgetCategoryId);
+            budgetCategory.Planned = model.Planned;
+            budgetCategory.Category = await categoryRepository.GetCategoryByIdAsync(model.CategoryId);
+
+            bcRepository.UpdateBudgetCategoriesAsync(budgetCategory);
+            return RedirectToAction("Budget", new {budgetId = model.BudgetId});
         }
 
         [HttpGet]
