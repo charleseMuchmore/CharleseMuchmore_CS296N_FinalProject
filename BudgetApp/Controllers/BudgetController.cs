@@ -48,6 +48,7 @@ namespace BudgetApp.Controllers
                 model = VMConverter.ToBudgetVM(b);
                 foreach (var bcat in model.BudgetCategories)
                 {
+                    model.PlannedTotal += bcat.Planned;
                     foreach (var e in bcat.Expenses)
                     {
                         bcat.ExpenseTotal += e.ExpenseAmount;
@@ -114,22 +115,43 @@ namespace BudgetApp.Controllers
 
         [HttpGet]
         [Authorize]
-        public IActionResult AddBudget()
+        public async Task<IActionResult> EditBudgetCategory(int budgetId, int bcatId)
         {
             return View();
         }
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> AddBudget(Budget model)
+        public async Task<IActionResult> EditBudgetCategory(int id)
         {
-            var user = await userManager.GetUserAsync(User);
-            model.AppUser = user;
-            model.BudgetExpenses = new List<Expense>();
-            model.BudgetCategories = new List<BudgetCategory>();
-            model.BudgetIncomes = new List<Income>();
+            return View();
+        }
 
-            await budgetRepository.StoreBudgetsAsync(model);
+        [HttpGet]
+        [Authorize]
+        public IActionResult AddBudget()
+        {
+            var model = new BudgetVM();
+            return View(model);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> AddBudget(BudgetVM model)
+        {
+            var budget = new Budget();
+            var user = await userManager.GetUserAsync(User);
+            budget.AppUser = user;
+            //all empty right now
+            budget.BudgetExpenses = new List<Expense>();
+            budget.BudgetCategories = new List<BudgetCategory>();
+            budget.BudgetIncomes = new List<Income>();
+
+            budget.BudgetName = model.BudgetName;
+            budget.StartDate = DateOnly.Parse(model.StartDate);
+            budget.EndDate = DateOnly.Parse(model.EndDate);
+
+            await budgetRepository.StoreBudgetsAsync(budget);
 
             return RedirectToAction("Index");
         }
