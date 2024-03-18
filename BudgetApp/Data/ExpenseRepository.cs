@@ -13,10 +13,6 @@ namespace BudgetApp.Data
             userManager = userMngr;
             dbContext = dc;
         }
-        public Task<int> DeleteExpenseeAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
 
         public Task<Expense> GetExpenseByIdAsync(int id)
         {
@@ -36,6 +32,14 @@ namespace BudgetApp.Data
         public async Task<int> StoreExpensesAsync(Expense expense)
         {
             await dbContext.Expenses.AddAsync(expense);
+            return dbContext.SaveChanges();
+        }
+        public async Task<int> DeleteExpenseeAsync(int id)
+        {
+            var b = await GetExpenseByIdAsync(id);
+
+            dbContext.Expenses.Remove(b);
+
             return dbContext.SaveChanges();
         }
     }

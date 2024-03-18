@@ -94,16 +94,23 @@ namespace BudgetApp.Controllers
         }
         [HttpGet]
         [Authorize]
-        public IActionResult DeleteExpense()
+        public async Task<IActionResult> DeleteExpense(int expenseId)
         {
-            return View();
+            var model = new ExpenseVM();
+            model.ExpenseId = expenseId;
+            var expense = await expenseRepository.GetExpenseByIdAsync(expenseId);
+            model.ExpenseLocation = expense.ExpenseLocation;
+            model.ExpenseAmount = expense.ExpenseAmount;
+
+            return View(model);
         }
 
         [HttpPost]
         [Authorize]
-        public IActionResult DeleteExpense(int expenseId)
+        public async Task<IActionResult> DeleteExpense(ExpenseVM model)
         {
-            return View();
+            await expenseRepository.DeleteExpenseeAsync(model.ExpenseId);
+            return RedirectToAction("Index");
         }
 
 
