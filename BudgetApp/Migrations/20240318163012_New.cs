@@ -79,7 +79,7 @@ namespace BudgetApp.Migrations
                 {
                     CategoryId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    CategoryName = table.Column<string>(type: "longtext", nullable: true)
+                    CategoryName = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
@@ -221,7 +221,7 @@ namespace BudgetApp.Migrations
                 {
                     BudgetId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    BudgetName = table.Column<string>(type: "longtext", nullable: true)
+                    BudgetName = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     AppUserId = table.Column<string>(type: "varchar(255)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -247,7 +247,7 @@ namespace BudgetApp.Migrations
                     BudgetCategoryId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     BudgetId = table.Column<int>(type: "int", nullable: false),
-                    CategoryId = table.Column<int>(type: "int", nullable: true),
+                    CategoryId = table.Column<int>(type: "int", nullable: false),
                     Planned = table.Column<int>(type: "int", nullable: false),
                     ExpenseTotal = table.Column<int>(type: "int", nullable: false)
                 },
@@ -264,7 +264,8 @@ namespace BudgetApp.Migrations
                         name: "FK_BudgetCategories_Categories_CategoryId",
                         column: x => x.CategoryId,
                         principalTable: "Categories",
-                        principalColumn: "CategoryId");
+                        principalColumn: "CategoryId",
+                        onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -279,7 +280,7 @@ namespace BudgetApp.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     IncomeAmount = table.Column<int>(type: "int", nullable: false),
                     IncomeDate = table.Column<DateOnly>(type: "date", nullable: false),
-                    IncomeSource = table.Column<string>(type: "longtext", nullable: true)
+                    IncomeSource = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
@@ -305,13 +306,13 @@ namespace BudgetApp.Migrations
                 {
                     ExpenseId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    BudgetId = table.Column<int>(type: "int", nullable: false),
+                    BudgetId = table.Column<int>(type: "int", nullable: true),
                     AppUserId = table.Column<string>(type: "varchar(255)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    BudgetCategoryId = table.Column<int>(type: "int", nullable: false),
+                    BudgetCategoryId = table.Column<int>(type: "int", nullable: true),
                     ExpenseDate = table.Column<DateOnly>(type: "date", nullable: false),
                     ExpenseAmount = table.Column<int>(type: "int", nullable: false),
-                    ExpenseLocation = table.Column<string>(type: "longtext", nullable: false)
+                    ExpenseLocation = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
@@ -327,14 +328,12 @@ namespace BudgetApp.Migrations
                         name: "FK_Expenses_BudgetCategories_BudgetCategoryId",
                         column: x => x.BudgetCategoryId,
                         principalTable: "BudgetCategories",
-                        principalColumn: "BudgetCategoryId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "BudgetCategoryId");
                     table.ForeignKey(
                         name: "FK_Expenses_Budgets_BudgetId",
                         column: x => x.BudgetId,
                         principalTable: "Budgets",
-                        principalColumn: "BudgetId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "BudgetId");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 

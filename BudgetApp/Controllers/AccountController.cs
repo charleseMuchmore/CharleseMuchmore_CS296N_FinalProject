@@ -103,11 +103,11 @@ namespace BudgetApp.Controllers
             {
                 if (model.ProfilePicture == "empty" || model.ProfilePicture == null)
                 {
-                    model.ProfilePicture = "\\img\\menobackground.png";
+                    model.ProfilePicture = "\\img\\default.png";
                 }
             } else
             {
-                model.ProfilePicture = user.ProfilePicture;
+                model.ProfilePicture = "\\img\\" + user.ProfilePicture;
             }
             
             return View(model);

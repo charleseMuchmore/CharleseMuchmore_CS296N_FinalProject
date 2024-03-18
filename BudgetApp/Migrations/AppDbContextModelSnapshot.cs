@@ -30,7 +30,8 @@ namespace BudgetApp.Migrations
                         .HasColumnType("varchar(255)");
 
                     b.Property<string>("BudgetName")
-                        .HasColumnType("longtext");
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
 
                     b.Property<DateOnly>("EndDate")
                         .HasColumnType("date");
@@ -54,7 +55,7 @@ namespace BudgetApp.Migrations
                     b.Property<int>("BudgetId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CategoryId")
+                    b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<int>("ExpenseTotal")
@@ -79,7 +80,8 @@ namespace BudgetApp.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("CategoryName")
-                        .HasColumnType("longtext");
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
 
                     b.HasKey("CategoryId");
 
@@ -96,10 +98,10 @@ namespace BudgetApp.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(255)");
 
-                    b.Property<int>("BudgetCategoryId")
+                    b.Property<int?>("BudgetCategoryId")
                         .HasColumnType("int");
 
-                    b.Property<int>("BudgetId")
+                    b.Property<int?>("BudgetId")
                         .HasColumnType("int");
 
                     b.Property<int>("ExpenseAmount")
@@ -110,7 +112,8 @@ namespace BudgetApp.Migrations
 
                     b.Property<string>("ExpenseLocation")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(150)
+                        .HasColumnType("varchar(150)");
 
                     b.HasKey("ExpenseId");
 
@@ -143,7 +146,8 @@ namespace BudgetApp.Migrations
                         .HasColumnType("date");
 
                     b.Property<string>("IncomeSource")
-                        .HasColumnType("longtext");
+                        .HasMaxLength(150)
+                        .HasColumnType("varchar(150)");
 
                     b.HasKey("IncomeId");
 
@@ -386,7 +390,9 @@ namespace BudgetApp.Migrations
 
                     b.HasOne("BudgetApp.Models.Category", "Category")
                         .WithMany()
-                        .HasForeignKey("CategoryId");
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Budget");
 
@@ -403,15 +409,11 @@ namespace BudgetApp.Migrations
 
                     b.HasOne("BudgetApp.Models.BudgetCategory", "BudgetCategory")
                         .WithMany("Expenses")
-                        .HasForeignKey("BudgetCategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("BudgetCategoryId");
 
                     b.HasOne("BudgetApp.Models.Budget", "Budget")
                         .WithMany("BudgetExpenses")
-                        .HasForeignKey("BudgetId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("BudgetId");
 
                     b.Navigation("AppUser");
 

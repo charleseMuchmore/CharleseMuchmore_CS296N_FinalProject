@@ -3,6 +3,10 @@
     ViewData["Title"] = "Budget Page";
 }
 
+<a href="AddCategory?budgetId=@Model.BudgetID" class="btn btn-primary">Add Category</a>
+<a href="../Income/AddIncome?budgetId=@Model.BudgetID" class="btn btn-primary">Add Income</a>
+<a href="../Expense/AddExpense?budgetId=@Model.BudgetID" class="btn btn-primary">Add Expense</a>
+
 @foreach (var cat in Model.BudgetCategories)
 {
     <div class="card" style="width: 28rem;">
@@ -29,10 +33,9 @@
                     </div>
                 </div>
             </div>
-            <a href="DeleteBudgetCategory?bcatId=@cat.BudgetCategoryId&budgetId=@Model.BudgetID">Delete Category</a>
+            <a class="btn btn-primary" href="BudgetCategory?bcatId=@cat.BudgetCategoryId&budgetId=@Model.BudgetID">View</a>
+            <hr />
+            <a class="btn btn-primary" href="DeleteBudgetCategory?bcatId=@cat.BudgetCategoryId&budgetId=@Model.BudgetID">Delete Category</a>
         </div>
     </div>
 }
-
-
-<a href="AddCategory?budgetId=@Model.BudgetID" class="btn btn-primary">Add Category</a>

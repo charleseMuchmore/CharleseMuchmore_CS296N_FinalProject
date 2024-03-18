@@ -1,1 +1,15 @@
-﻿Delete Expense
+﻿@model ExpenseVM
+
+<form method="Post">
+    <label for="confirm">
+        Do you really want to delete <span>@Model.ExpenseAmount</span>
+        @if (Model.ExpenseLocation != null)
+        {
+            <span>from @Model.ExpenseLocation</span>
+        }
+        ?
+    </label>
+    <input hidden value="@Model.ExpenseId" name="IncomeId" />
+    <input hidden value="@Model.BudgetId" name="BudgetId" />
+    <input id="confirm" type="submit" value="Yes" />
+</form>

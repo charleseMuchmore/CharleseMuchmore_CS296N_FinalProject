@@ -161,5 +161,13 @@ namespace BudgetApp.Controllers
             await budgetRepository.DeleteBudgetAsync(model.BudgetId);
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> BudgetCategory(int budgetId, int bcatId)
+        {
+            var model = await bcRepository.GetBudgetCategoryByIdAsync(bcatId);
+            return View(model);
+        }
     }
 }
