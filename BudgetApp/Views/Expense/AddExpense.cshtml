@@ -13,11 +13,11 @@
     @if (Model.BudgetCategories.Count > 0)
     {
         <label for="cats">Category</label>
-        <select id="cats" name="SelectedBudgetCategory" />
+        <select id="cats" name="SelectedBudgetCategoryId" />
         <option> -- </option>
         @foreach (var cat in Model.BudgetCategories)
         {
-            <option value="@cat.Category.CategoryName">
+            <option value="@cat.BudgetCategoryId" name="SelectedBudgetCategoryId">
                 @cat.Category.CategoryName
             </option>
         }

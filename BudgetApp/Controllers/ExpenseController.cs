@@ -71,10 +71,16 @@ namespace BudgetApp.Controllers
         {
             var expense = new Expense();
 
-            if (model.BudgetId != 0 || model.BudgetId != null)
+            if (model.BudgetId != 0 && model.BudgetId != null)
             {
                 expense.BudgetId = model.BudgetId;
                 expense.Budget = await budgetRepository.GetBudgetByIdAsync((int)model.BudgetId);
+                if (model.SelectedBudgetCategoryId != 0 && model.SelectedBudgetCategoryId != null)
+                {
+                    expense.BudgetCategoryId = model.SelectedBudgetCategoryId;
+                    var bc = await budgetCategoryRepository.GetBudgetCategoryByIdAsync((int)model.SelectedBudgetCategoryId);
+                    expense.BudgetCategory = bc;
+                }
             }
             else
             {
@@ -95,7 +101,20 @@ namespace BudgetApp.Controllers
 
             await expenseRepository.StoreExpensesAsync(expense);
 
-            return RedirectToAction("Index");
+            expense.Budget.BudgetExpenses.Add(expense);
+
+            expense.BudgetCategory.Expenses.Add(expense);
+
+            expense.BudgetCategory.ExpenseTotal += expense.ExpenseAmount;
+
+            if (model.BudgetId != null && model.BudgetId != 0)
+            {
+                return RedirectToAction("Budget", "Budget", new { budgetId = model.BudgetId });
+            } else
+            {
+                return RedirectToAction("Index");
+            }
+            
         }
         [HttpGet]
         [Authorize]
